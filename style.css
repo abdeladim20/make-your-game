@@ -1,0 +1,23 @@
+#game-container {
+    width: 800px;
+    height: 600px;
+    margin: auto;
+    border: 2px solid black;
+    position: relative;
+    overflow: hidden;
+}
+.enemy {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-image: url('assets/images/pngwing.com.png'); /* Path to your image */
+    background-size: cover; /* Ensure the image covers the entire div */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent tiling */
+}
+
+#player {
+    border: 2px solid white; /* Optional border for visibility */
+    border-radius: 5px; /* Optional rounded corners */
+}
+
