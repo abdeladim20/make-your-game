@@ -1,11 +1,25 @@
-<script src="scripts/engine.js"></script>
-<script src="scripts/entities.js"></script>
-<script src="scripts/input.js"></script>
-<script src="scripts/ui.js"></script>
-<link rel="stylesheet" href="style.css">
-<div id="game-container">
-    <div id="score">Score: 0</div>
-    <div id="lives">Lives: 3</div>
-    <button id="start-button">Start Game</button>
-</div>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Invaders</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <body>
+        <div id="game-container">
+            <div id="ui">
+                <div id="score">Score: 0</div>
+                <div id="lives">Lives: 3</div>
+                <button id="start-button">Start Game</button>
+            </div>
+        </div>
+    <script src="scripts/main.js" defer></script>
+    <script src="scripts/player.js" defer></script>
+    <script src="scripts/enemies.js" defer></script>
+    <script src="scripts/collisions.js" defer></script>
+    <script src="scripts/input.js" defer></script>
+    <script src="scripts/ui.js" defer></script>
+</body>
+</html>

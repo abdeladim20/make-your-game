@@ -1,23 +1,63 @@
-#game-container {
-    width: 800px;
-    height: 600px;
-    margin: auto;
-    border: 2px solid black;
-    position: relative;
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: black;
+    color: white;
     overflow: hidden;
 }
-.enemy {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    background-image: url('assets/images/pngwing.com.png'); /* Path to your image */
-    background-size: cover; /* Ensure the image covers the entire div */
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Prevent tiling */
+
+#game-container {
+    position: relative;
+    width: 800px;
+    height: 600px;
+    margin: 0 auto;
+    background-color: #000;
+    border: 2px solid white;
 }
 
-#player {
-    border: 2px solid white; /* Optional border for visibility */
-    border-radius: 5px; /* Optional rounded corners */
+#ui {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+#start-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    display: block;
+}
+
+.bullet {
+    position: absolute;
+    width: 5px;
+    height: 10px;
+    background-color: yellow;
+}
+
+#enemy-formation {
+    position: absolute;
+    display: grid;
+    grid-gap: 10px;
+    border: 1px solid transparent; /* Optional for debugging */
+    background-color: transparent;
+}
+
+.enemy {
+    width: 40px;
+    height: 40px;
+    background-image: url('assets/images/enemy.png'); /* Replace with your image */
+    background-size: cover;
+    background-position: center;
+    border-radius: 5px; /* Optional for rounded edges */
+    background-color: red;
 }
 

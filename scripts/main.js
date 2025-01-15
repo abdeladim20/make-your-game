@@ -1,22 +1,27 @@
-
-
 let isPaused = false;
+let gameRunning = false;
 
 function initializeGame() {
-    // Reset player position
-    playerPosition = 375;
-
-    // Clear any existing entities
-    document.querySelectorAll(".bullet, .enemy, #player").forEach((entity) => entity.remove());
-
-    // Set initial UI values
-    document.getElementById("score").textContent = `Score: 0`;
-    document.getElementById("lives").textContent = `Lives: 3`;
-
-    // Spawn the player
+    gameRunning = true;
+    isPaused = false;
+    resetUI();
     spawnPlayer();
+    gameLoop();
+}
 
-    // Start the game loop
+function gameLoop() {
+    if (!isPaused && gameRunning) {
+        moveEntities();
+        moveFormation();
+        movePlayer();
+        checkBulletCollisions();
+        updateUI();
+    }
     requestAnimationFrame(gameLoop);
 }
 
+document.getElementById("start-button").addEventListener("click", () => {
+    document.getElementById("start-button").style.display = "none";
+    initializeGame();
+    spawnEnemyFormation(4, 8); 
+});

@@ -1,29 +1,18 @@
-const keys = {}; // Tracks key states
-let playerPosition = 375; // Player's horizontal position (starting at the center)
+const keys = {};
 
-window.addEventListener("keydown", (e) => {
-    keys[e.key] = true;
+document.addEventListener("keydown", (event) => {
+    keys[event.key] = true;
 });
 
-window.addEventListener("keyup", (e) => {
-    keys[e.key] = false;
+document.addEventListener("keyup", (event) => {
+    keys[event.key] = false;
 });
 
-function handleInput() {
-    const speed = 5; // Speed of player movement
-    const containerWidth = 800; // Width of the game container
-    const playerWidth = 50; // Width of the player
+document.addEventListener("keydown", (event) => {
+    keys[event.key] = true;
 
-    if (keys["ArrowLeft"]) {
-        playerPosition = Math.max(0, playerPosition - speed);
+    // Shoot on Spacebar press
+    if (event.key === " " && gameRunning && canShoot) {
+        shootBullet()
     }
-    if (keys["ArrowRight"]) {
-        playerPosition = Math.min(containerWidth - playerWidth, playerPosition + speed);
-    }
-
-    // Update player's position
-    const player = document.getElementById("player");
-    if (player) {
-        player.style.left = `${playerPosition}px`;
-    }
-}
+});
