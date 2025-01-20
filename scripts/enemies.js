@@ -47,49 +47,54 @@ function moveFormation() {
     const gameRect = gameContainer.getBoundingClientRect();
     const enemiesRect = enemiesContainer.getBoundingClientRect();
 
-    // Current enemy formation position
+    // Current position and movement direction
     let top = parseFloat(getComputedStyle(enemiesContainer).top) || 0;
     let left = parseFloat(getComputedStyle(enemiesContainer).left) || 0;
 
-    // Check if enemies are close to the player's border
-    if (enemiesRect.bottom >= playerRect.top) {
-        // Move the enemies back up
-        top -= 20; // Move up by 20px
-        enemiesContainer.style.top = `${top}px`;
+    // Horizontal and vertical direction stored in data attributes
+    let horizontalDirection = enemiesContainer.dataset.horizontalDirection || "right";
+    let verticalDirection = enemiesContainer.dataset.verticalDirection || "down";
 
-        // Optional: Change direction if needed
-        left += 10; // Shift slightly to avoid direct vertical descent
-        enemiesContainer.style.left = `${left}px`;
+    const step = 1; // Movement step size
 
-        return;
+    // Check if enemies have reached the top of the player
+    if (verticalDirection === "down" && enemiesRect.bottom >= playerRect.top) {
+        verticalDirection = "up"; // Change direction to move up
     }
 
-    // Regular horizontal movement logic (e.g., move left or right)
-    let direction = enemiesContainer.dataset.direction || "right"; // Save direction as a dataset property
-    const step = 5; // Movement step size
+    // Move formation vertically
+    if (verticalDirection === "down") {
+        top += step;
+    } else if (verticalDirection === "up") {
+        if (top > 0) {
+            top -= step;
+        } else {
+            verticalDirection = "down"; // Change direction back to down when reaching the top of the container
+        }
+    }
 
-    if (direction === "right") {
+    // Horizontal movement logic
+    if (horizontalDirection === "right") {
         if (enemiesRect.right + step < gameRect.right) {
             left += step;
         } else {
-            direction = "left";
-            top += 20; // Move down when hitting a border
+            horizontalDirection = "left";
         }
-    } else if (direction === "left") {
+    } else if (horizontalDirection === "left") {
         if (enemiesRect.left - step > gameRect.left) {
             left -= step;
         } else {
-            direction = "right";
-            top += 20; // Move down when hitting a border
+            horizontalDirection = "right";
         }
     }
 
-    // Update position
+    // Update enemy formation position
     enemiesContainer.style.left = `${left}px`;
     enemiesContainer.style.top = `${top}px`;
 
     // Save the updated direction
-    enemiesContainer.dataset.direction = direction;
+    enemiesContainer.dataset.horizontalDirection = horizontalDirection;
+    enemiesContainer.dataset.verticalDirection = verticalDirection;
 }
 
 // Call this function repeatedly to move the formation
