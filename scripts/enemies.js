@@ -57,6 +57,12 @@ function moveFormation() {
 
     const step = 1; // Movement step size
 
+    if (enemiesRect.bottom >= playerRect.top) {
+        // Check if any enemy has reached the player
+        endGame();  // Trigger end game if enemies hit the player
+        return; // Stop moving after game over
+    }
+
     // Check if enemies have reached the top of the player
     if (verticalDirection === "down" && enemiesRect.bottom >= playerRect.top) {
         verticalDirection = "up"; // Change direction to move up

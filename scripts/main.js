@@ -20,8 +20,9 @@ function gameLoop() {
     requestAnimationFrame(gameLoop);
 }
 
+
 document.getElementById("start-button").addEventListener("click", () => {
-    document.getElementById("start-button").style.display = "none";
-    initializeGame();
-    spawnEnemyFormation(3, 6); 
+    document.getElementById("start-button").style.display = "none"; // Hide the start button
+    initializeGame(); // Start the game
+    spawnEnemyFormation(3, 6); // Spawn enemy formation
 });

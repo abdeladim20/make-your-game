@@ -41,9 +41,9 @@ function checkBulletCollisions() {
 
 
 function endGame() {
-    gameRunning = false;
-    alert("Game Over! Final Score: " + score);
-    // Optionally reset the game
+    gameRunning = false;  // Stop the game loop
+    isPaused = true;      // Optionally pause everything
+    alert("Game Over! Final Score: " + score); // Show game over message
 }
 
 
