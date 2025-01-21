@@ -27,6 +27,7 @@ function checkBulletCollisions() {
                 // Update appearance: make background transparent and remove background image
                 enemy.style.backgroundColor = "transparent";
                 enemy.style.backgroundImage = "none";
+                
 
                 // Remove the bullet
                 bullet.element.remove();
@@ -34,6 +35,7 @@ function checkBulletCollisions() {
 
                 // Optionally update score
                 updateScore(10);
+                checkGameOver();
             }
         });
     });
@@ -43,7 +45,9 @@ function checkBulletCollisions() {
 function endGame() {
     gameRunning = false;  // Stop the game loop
     isPaused = true;      // Optionally pause everything
-    alert("Game Over! Final Score: " + score); // Show game over message
+    // alert("Game Over! Final Score: " + score); // Show game over message
+    location.reload()
+    // return    
 }
 
 
@@ -59,7 +63,7 @@ function shootBullet() {
     bullet.style.height = "10px";
     bullet.style.backgroundColor = "yellow";
     bullet.style.left = `${playerPosition + 22.5}px`; 
-    bullet.style.bottom = "70px"; 
+    bullet.style.bottom = "70px";
 
     document.getElementById("game-container").appendChild(bullet);
 
