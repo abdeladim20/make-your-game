@@ -23,5 +23,5 @@ function gameLoop() {
 document.getElementById("start-button").addEventListener("click", () => {
     document.getElementById("start-button").style.display = "none";
     initializeGame();
-    spawnEnemyFormation(4, 8); 
+    spawnEnemyFormation(3, 6); 
 });

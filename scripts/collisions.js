@@ -66,7 +66,7 @@ function shootBullet() {
     bullets.push({ element: bullet, y: 70 });
     setTimeout(() => {
         canShoot = true;
-    }, 600);
+    }, 300);
 }
 
 function moveEntities() {
