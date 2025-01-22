@@ -70,3 +70,22 @@ body {
 #score {
     padding: 10px;
 }
+
+#endGame {
+    background-color: rgb(255, 255, 255);
+    padding: 10px 10px;
+    margin: 250px 400px;
+    color: rgb(115, 0, 223);
+    border-radius: 15px;
+    width: 150px;
+    height: 150px;
+    text-align: center;
+    /* align-items: center; */
+    font-size: 20px;
+    z-index: 10;
+    position: absolute;
+}
+
+.blured {
+    filter: blur(10px);
+}

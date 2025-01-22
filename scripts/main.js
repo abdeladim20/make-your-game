@@ -10,32 +10,48 @@ function initializeGame() {
 }
 
 
-let count = 0
 function checkGameOver() {
     const enemiesContainer = document.getElementById("enemy-formation");
     const allEnemies = enemiesContainer.querySelectorAll(".enemy");
-    
+
     // Check if all enemies have the 'killed' class
     const allKilled = Array.from(allEnemies).every(enemy => enemy.classList.contains("killed"))
-    
-    if (allKilled && count == 0) {
-        count++
+
+    if (allKilled) {
+        console.log('allKilled');
+        
         endGame();
     }
 }
 
-function remove() {
+function update() {
     const enemiesContainer = document.getElementById("enemy-formation");
     const allEnemies = enemiesContainer.querySelectorAll(".enemy");
-    // const id = document
-    
+
     // Check if all enemies have the 'killed' class
     const allKilled = Array.from(allEnemies).every(enemy => enemy.classList.contains("killed"))
-    allEnemies.forEach((element, i) => {
-        if (element.classList == "killed") { 
-            element.splice(i, 1) 
-        }
-    });
+    // const allKilled = (allEnemies.classList.contains("killed"))
+    // allKilled.remove();
+    if (allKilled) {
+        // If all enemies are killed, remove them
+        allEnemies.forEach(enemy => {
+            if (enemy.classList.contains("killed")) {
+                enemy.remove();
+            }
+        });
+    }
+
+
+    // allKilled.forEach((element) => {
+    //     // console.log('DDDDD');
+    //     if (element.classList == "killed") {
+    //         // console.log(element);
+    //         // console.log('dddddddddd');
+    //         element.id.remove();
+    //         element.splice(id, 1)
+            
+    //     }
+    // });
 }
 
 function gameLoop() {
@@ -45,9 +61,9 @@ function gameLoop() {
         movePlayer();
         checkBulletCollisions();
         updateUI();
-        
+        // update()
     }
-    requestAnimationFrame(gameLoop);
+    req = requestAnimationFrame(gameLoop);
 }
 
 

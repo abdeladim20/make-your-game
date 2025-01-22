@@ -31,6 +31,12 @@ function spawnEnemyFormation(rows, cols) {
     
     gameContainer.appendChild(formation);
 }
+function isCollision(rect1, rect2) {
+    return rect1.x < rect2.x + rect2.width &&
+           rect1.x + rect1.width > rect2.x &&
+           rect1.y < rect2.y + rect2.height &&
+           rect1.y + rect1.height > rect2.y;
+}
 
 function moveFormation() {
     const enemiesContainer = document.getElementById("enemy-formation");
@@ -41,30 +47,37 @@ function moveFormation() {
 
     const playerRect = player.getBoundingClientRect();
     const gameRect = gameContainer.getBoundingClientRect();
-    const enemiesRect = enemiesContainer.getBoundingClientRect();
 
     // Current enemy formation position
     let top = parseFloat(getComputedStyle(enemiesContainer).top) || 0;
     let left = parseFloat(getComputedStyle(enemiesContainer).left) || 0;
-
+    for (let index = 0; index < enemies.length; index++) {
+        let enemiesRect = enemiesContainer.getBoundingClientRect();
+        console.log(enemiesRect);
+        
+        if(isCollision(enemiesRect, playerRect)) {
+        console.log('player top');
+         endGame();
+        }
+         
+     }
     // Check if enemies are close to the player's border
-    if (enemiesRect.bottom >= playerRect.bottom) {
+    let enemiesRect = enemiesContainer.getBoundingClientRect();
+
+    if (enemiesRect.bottom > gameRect.bottom) {
         top -= 20; // Move up by 20px
         enemiesContainer.style.top = `${top}px`;
         left += 10; // Shift slightly to avoid direct vertical descent
         enemiesContainer.style.left = `${left}px`;
-        return;
+        // return;
+    }else if (enemiesRect.bottom == gameRect.bottom){   
+        console.log('rect bottom');
+        endGame()
     }
 
     // Regular horizontal movement logic (move left or right)
     let direction = enemiesContainer.dataset.direction || "right"; // Save direction as a dataset property
     const step = 5; // Movement step size
-    
-    if (enemiesRect.bottom >= playerRect.top) {    
-        // If formation reaches the bottom of the container
-        endGame();  // Trigger the end game if enemies reach the bottom
-        return; // Stop moving after game over
-    }
 
     if (direction === "right") {
         if (enemiesRect.right + step < gameRect.right) {
@@ -92,18 +105,3 @@ function moveFormation() {
 
 // Call this function repeatedly to move the formation
 setInterval(moveFormation, 50); // Adjust the interval for smoother or faster movement
-// function moveFormation() {
-//     const gameContainer = document.getElementById("game-container");
-//     const containerWidth = gameContainer.offsetWidth;
-//     if (formation) {
-//         const formationRect = formation.getBoundingClientRect();
-//         const left = formation.offsetLeft;
-//         // Reverse direction if the formation hits the container edges
-//         if (left <= 0 || left + formationRect.width >= containerWidth) {
-//             formationDirection *= -1; // Reverse direction
-//             formation.style.top = `${formation.offsetTop + 20}px`; // Move down when changing direction
-//         }
-//         // Move the formation
-//         formation.style.left = `${left + formationDirection * 2}px`;
-//     }
-// }

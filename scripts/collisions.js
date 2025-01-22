@@ -1,5 +1,9 @@
 let bullets = [];
 let canShoot = true;
+const end = document.getElementById('endGame');
+end.style.display = "none";
+const game = document.getElementById('game-container');
+const s = document.getElementById('score')
 
 function checkBulletCollisions() {
     const enemiesContainer = document.getElementById("enemy-formation");
@@ -27,8 +31,7 @@ function checkBulletCollisions() {
                 // Update appearance: make background transparent and remove background image
                 enemy.style.backgroundColor = "transparent";
                 enemy.style.backgroundImage = "none";
-                
-
+                update()
                 // Remove the bullet
                 bullet.element.remove();
                 bullets.splice(bulletIndex, 1);
@@ -44,10 +47,15 @@ function checkBulletCollisions() {
 
 function endGame() {
     gameRunning = false;  // Stop the game loop
-    isPaused = true;      // Optionally pause everything
+    isPaused = true;     // Optionally pause everything
     // alert("Game Over! Final Score: " + score); // Show game over message
-    location.reload()
-    // return    
+    // return
+    cancelAnimationFrame(req);
+    
+    end.style.display = "block";
+    end.appendChild(s)
+    
+    game.classList.add("blured")
 }
 
 
