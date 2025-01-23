@@ -19,7 +19,6 @@ function checkGameOver() {
 
     if (allKilled) {
         console.log('allKilled');
-        
         endGame();
     }
 }
@@ -33,10 +32,16 @@ function update() {
     // const allKilled = (allEnemies.classList.contains("killed"))
     // allKilled.remove();
     if (allKilled) {
+        console.log('dsflkv,dmvnjdklfvkjwsbfvjkbdwfnvjk:');
+        
         // If all enemies are killed, remove them
-        allEnemies.forEach(enemy => {
-            if (enemy.classList.contains("killed")) {
-                enemy.remove();
+        allKilled.forEach((enemZyZZZ, i) => {
+            console.log(i, 'aa');
+            if (enemZyZZZ.classList.contains("")) {
+                console.log(enemZyZZZ.element);
+                
+                enemZyZZZ.remove();
+                enemZyZZZ.splice(i, 1)
             }
         });
     }
@@ -61,7 +66,6 @@ function gameLoop() {
         movePlayer();
         checkBulletCollisions();
         updateUI();
-        // update()
     }
     req = requestAnimationFrame(gameLoop);
 }

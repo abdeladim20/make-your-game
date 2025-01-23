@@ -28,10 +28,33 @@ function checkBulletCollisions() {
                 // Change enemy class to 'killed'
                 enemy.className = "killed";
 
+
+
+                const allKilled = Array.from(enemyElements).some(enemy => enemy.classList.contains("killed"))
+                console.log(allKilled);
+                
+                // const allKilled = (allEnemies.classList.contains("killed"))
+                // allKilled.remove();
+                if (allKilled) {
+                    // console.log('dsflkv,dmvnjdklfvkjwsbfvjkbdwfnvjk:');
+                    
+                    // If all enemies are killed, remove them
+                    enemyElements.forEach((enemZyZZZ, i) => {
+                        // console.log(i, 'aa');
+                        if (enemZyZZZ.classList.contains("")) {
+                            // console.log(enemZyZZZ.element);
+                            
+                            enemZyZZZ.remove();
+                            enemZyZZZ.splice(i, 1)
+                        }
+                    });
+                }
+            
                 // Update appearance: make background transparent and remove background image
                 enemy.style.backgroundColor = "transparent";
                 enemy.style.backgroundImage = "none";
-                update()
+                
+                
                 // Remove the bullet
                 bullet.element.remove();
                 bullets.splice(bulletIndex, 1);
