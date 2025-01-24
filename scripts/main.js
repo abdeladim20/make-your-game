@@ -13,12 +13,8 @@ function initializeGame() {
 function checkGameOver() {
     const enemiesContainer = document.getElementById("enemy-formation");
     const allEnemies = enemiesContainer.querySelectorAll(".enemy");
-
-    // Check if all enemies have the 'killed' class
     const allKilled = Array.from(allEnemies).every(enemy => enemy.classList.contains("killed"))
-
     if (allKilled) {
-        console.log('allKilled');
         endGame();
     }
 }
@@ -32,16 +28,10 @@ function update() {
     // const allKilled = (allEnemies.classList.contains("killed"))
     // allKilled.remove();
     if (allKilled) {
-        console.log('dsflkv,dmvnjdklfvkjwsbfvjkbdwfnvjk:');
-        
-        // If all enemies are killed, remove them
-        allKilled.forEach((enemZyZZZ, i) => {
-            console.log(i, 'aa');
-            if (enemZyZZZ.classList.contains("")) {
-                console.log(enemZyZZZ.element);
-                
-                enemZyZZZ.remove();
-                enemZyZZZ.splice(i, 1)
+        allKilled.forEach((e, i) => {
+            if (e.classList.contains("")) {
+                e.remove();
+                e.splice(i, 1)
             }
         });
     }
