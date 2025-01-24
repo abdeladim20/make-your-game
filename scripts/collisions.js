@@ -7,14 +7,18 @@ const s = document.getElementById('score')
 
 function checkBulletCollisions() {
     const enemiesContainer = document.getElementById("enemy-formation");
+    const player = document.getElementById("player");
 
-    if (!enemiesContainer) return;
+    if (!enemiesContainer || !player) return;
 
+    const playerRect = player.getBoundingClientRect();
+
+    // Check collisions between bullets and enemies
     bullets.forEach((bullet, bulletIndex) => {
         const bulletRect = bullet.element.getBoundingClientRect();
 
         // Check each enemy within the formation
-        const enemyElements = enemiesContainer.querySelectorAll(".enemy");
+        const enemyElements = enemiesContainer.querySelectorAll(".enemy:not(.killed)");
         enemyElements.forEach((enemy) => {
             const enemyRect = enemy.getBoundingClientRect();
 
@@ -25,45 +29,42 @@ function checkBulletCollisions() {
                 bulletRect.top < enemyRect.bottom &&
                 bulletRect.bottom > enemyRect.top
             ) {
-                // Change enemy class to 'killed'
-                enemy.className = "killed";
+                // Mark enemy as killed
+                enemy.classList.add("killed");
 
-
-
-                const allKilled = Array.from(enemyElements).some(enemy => enemy.classList.contains("killed"))
-                console.log(allKilled);
-                
-                // const allKilled = (allEnemies.classList.contains("killed"))
-                // allKilled.remove();
-                if (allKilled) {
-                    // console.log('dsflkv,dmvnjdklfvkjwsbfvjkbdwfnvjk:');
-                    
-                    // If all enemies are killed, remove them
-                    enemyElements.forEach((enemZyZZZ, i) => {
-                        // console.log(i, 'aa');
-                        if (enemZyZZZ.classList.contains("")) {
-                            // console.log(enemZyZZZ.element);
-                            
-                            enemZyZZZ.remove();
-                            enemZyZZZ.splice(i, 1)
-                        }
-                    });
-                }
-            
-                // Update appearance: make background transparent and remove background image
+                // Update appearance
                 enemy.style.backgroundColor = "transparent";
                 enemy.style.backgroundImage = "none";
-                
-                
+
                 // Remove the bullet
                 bullet.element.remove();
                 bullets.splice(bulletIndex, 1);
 
-                // Optionally update score
+                // Update score
                 updateScore(10);
-                checkGameOver();
+
+                // Check if all enemies are killed
+                if (enemiesContainer.querySelectorAll(".enemy:not(.killed)").length === 0) {
+                    endGame();
+                }
             }
         });
+    });
+
+    // Check for collision between enemies and player
+    const enemyElements = enemiesContainer.querySelectorAll(".enemy:not(.killed)");
+    enemyElements.forEach((enemy) => {
+        const enemyRect = enemy.getBoundingClientRect();
+
+        if (
+            playerRect.left < enemyRect.right &&
+            playerRect.right > enemyRect.left &&
+            playerRect.top < enemyRect.bottom &&
+            playerRect.bottom > enemyRect.top
+        ) {
+            // End the game if enemy collides with the player
+            endGame();
+        }
     });
 }
 

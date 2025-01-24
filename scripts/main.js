@@ -45,18 +45,6 @@ function update() {
             }
         });
     }
-
-
-    // allKilled.forEach((element) => {
-    //     // console.log('DDDDD');
-    //     if (element.classList == "killed") {
-    //         // console.log(element);
-    //         // console.log('dddddddddd');
-    //         element.id.remove();
-    //         element.splice(id, 1)
-            
-    //     }
-    // });
 }
 
 function gameLoop() {
