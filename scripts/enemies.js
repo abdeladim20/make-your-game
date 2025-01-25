@@ -100,22 +100,52 @@ function moveFormation() {
 // Call this function repeatedly to move the formation
 setInterval(moveFormation, 50); // Adjust the interval for smoother or faster movement
 
-// function moveFormation() {
-//     const gameContainer = document.getElementById("game-container");
-//     const containerWidth = gameContainer.offsetWidth;
+function fireEnemyBullet(enemy) {
+    const bullet = document.createElement('div');
+    bullet.classList.add('bullet');
 
-//     if (formation) {
-//         const formationRect = formation.getBoundingClientRect();
-//         const left = formation.offsetLeft;
+    // Set the initial position of the bullet to the enemy's position
+    const enemyRect = enemy.getBoundingClientRect();
+    const containerRect = gameContainer.getBoundingClientRect();
+    bullet.style.left = `${enemyRect.left + enemyRect.width / 2 - containerRect.left}px`;
+    bullet.style.top = `${enemyRect.bottom - containerRect.top}px`;
 
-//         // Reverse direction if the formation hits the container edges
-//         if (left <= 0 || left + formationRect.width >= containerWidth) {
-//             formationDirection *= -1; // Reverse direction
-//             formation.style.top = `${formation.offsetTop + 20}px`; // Move down when changing direction
-//         }
+    // Append the bullet to the game container
+    gameContainer.appendChild(bullet);
 
-//         // Move the formation
-//         formation.style.left = `${left + formationDirection * 2}px`;
-//     }
-// }
+    // Move the bullet downward
+    const bulletInterval = setInterval(() => {
+        const bulletTop = parseInt(bullet.style.top);
+        bullet.style.top = `${bulletTop + 5}px`;
 
+        // Check for collision with player
+        const bulletRect = bullet.getBoundingClientRect();
+        const playerRect = player.getBoundingClientRect();
+        if (
+            bulletRect.left < playerRect.right &&
+            bulletRect.right > playerRect.left &&
+            bulletRect.top < playerRect.bottom &&
+            bulletRect.bottom > playerRect.top
+        ) {
+            console.log('Player hit!');
+            gameContainer.removeChild(bullet);
+            clearInterval(bulletInterval);
+        }
+
+        // Remove the bullet if it goes out of bounds
+        if (bulletTop > gameContainer.offsetHeight) {
+            gameContainer.removeChild(bullet);
+            clearInterval(bulletInterval);
+        }
+    }, 20); // Adjust for speed
+}
+
+function startEnemyFiring() {
+    enemies.forEach((enemy) => {
+        setInterval(() => {
+            fireEnemyBullet(enemy);
+        }, Math.random() * 2000 + 1000); // Randomize firing interval (1-3 seconds)
+    });
+}
+
+startEnemyFiring();
