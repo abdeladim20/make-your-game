@@ -45,18 +45,10 @@ body {
 
 #enemy-formation {
     position: absolute;
-    display: grid;
-    grid-gap: 1px;
-    border: 1px solid transparent; /* Optional for debugging */
     background-color: transparent;
 }
 
 .enemy {
-    width: 40px;
-    height: 40px;
-    background-image: url('assets/images/enemy.png'); /* Replace with your image */
-    background-size: cover;
-    background-position: center;
     margin: 0;
     border-radius: 100px; /* Optional for rounded edges */
     background-color: red;

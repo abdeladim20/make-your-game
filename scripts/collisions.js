@@ -5,7 +5,6 @@ function checkBulletCollisions() {
     const enemiesContainer = document.getElementById("enemy-formation");
 
     if (!enemiesContainer) return;
-
     bullets.forEach((bullet, bulletIndex) => {
         const bulletRect = bullet.element.getBoundingClientRect();
 
@@ -24,14 +23,15 @@ function checkBulletCollisions() {
                 // Change enemy class to 'killed'
                 enemy.className = "killed";
 
-                // Update appearance: make background transparent and remove background image
+                //Update appearance: make background transparent and remove background image
                 enemy.style.backgroundColor = "transparent";
                 enemy.style.backgroundImage = "none";
-
+                //enemy.remove()
+                
                 // Remove the bullet
                 bullet.element.remove();
                 bullets.splice(bulletIndex, 1);
-
+                
                 // Optionally update score
                 updateScore(10);
             }
@@ -77,8 +77,8 @@ function moveEntities() {
 
         // Remove bullet if it moves off-screen
         if (bullet.y > 600) {
-            bullet.element.remove(); // Remove from DOM
-            bullets.splice(index, 1); // Remove from array
+            bullet.element.remove();
+            bullets.splice(index, 1);
         }
     });
 }

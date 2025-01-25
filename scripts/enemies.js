@@ -16,7 +16,6 @@ function spawnEnemyFormation(rows, cols) {
     formation.style.height = `${rows * 50}px`; // Adjust based on enemy height
     formation.style.display = "grid";
     formation.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
-    formation.style.gridGap = "10px";
 
     // Add enemies to the formation
     for (let i = 0; i < rows * cols; i++) {
@@ -56,7 +55,7 @@ function moveFormation() {
     let verticalDirection = enemiesContainer.dataset.verticalDirection || "down";
 
     const step = 1; // Movement step size
-
+    
     // Check if enemies have reached the top of the player
     if (verticalDirection === "down" && enemiesRect.bottom >= playerRect.top) {
         verticalDirection = "up"; // Change direction to move up
