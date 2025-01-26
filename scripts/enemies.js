@@ -88,7 +88,8 @@ function updateLives() {
 // Function to make an enemy shoot a bullet
 function enemyShootBullet() {
     const enemiesContainer = document.getElementById("enemy-formation");
-    const enemyElements = enemiesContainer.querySelectorAll(".enemy");
+   // const enemyElements = enemiesContainer.querySelectorAll(".enemy");
+    const enemyElements = enemiesContainer.querySelectorAll(".enemy:not(.killed)");
 
     if (enemyElements.length === 0) return;
 
