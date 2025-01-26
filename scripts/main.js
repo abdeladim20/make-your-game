@@ -19,29 +19,30 @@ function checkGameOver() {
     }
 }
 
-function update() {
-    const enemiesContainer = document.getElementById("enemy-formation");
-    const allEnemies = enemiesContainer.querySelectorAll(".enemy");
+// function update() {
+//     const enemiesContainer = document.getElementById("enemy-formation");
+//     const allEnemies = enemiesContainer.querySelectorAll(".enemy");
 
-    // Check if all enemies have the 'killed' class
-    const allKilled = Array.from(allEnemies).every(enemy => enemy.classList.contains("killed"))
-    // const allKilled = (allEnemies.classList.contains("killed"))
-    // allKilled.remove();
-    if (allKilled) {
-        allKilled.forEach((e, i) => {
-            if (e.classList.contains("")) {
-                e.remove();
-                e.splice(i, 1)
-            }
-        });
-    }
-}
+//     // Check if all enemies have the 'killed' class
+//     const allKilled = Array.from(allEnemies).every(enemy => enemy.classList.contains("killed"))
+//     // const allKilled = (allEnemies.classList.contains("killed"))
+//     // allKilled.remove();
+//     if (allKilled) {
+//         allKilled.forEach((e, i) => {
+//             if (e.classList.contains("")) {
+//                 e.remove();
+//                 e.splice(i, 1)
+//             }
+//         });
+//     }
+// }
 
 function gameLoop() {
     if (!isPaused && gameRunning) {
         moveEntities();
         moveFormation();
         movePlayer();
+        moveEnemyBullets();
         checkBulletCollisions();
         updateUI();
     }

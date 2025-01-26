@@ -50,7 +50,7 @@ function moveFormation() {
     // Calculate the bounding box for all remaining enemies
     const leftMost = Math.min(...remainingEnemies.map(enemy => enemy.getBoundingClientRect().left));
     const rightMost = Math.max(...remainingEnemies.map(enemy => enemy.getBoundingClientRect().right));
-    const topMost = Math.min(...remainingEnemies.map(enemy => enemy.getBoundingClientRect().top));
+    // const topMost = Math.min(...remainingEnemies.map(enemy => enemy.getBoundingClientRect().top));
 
     let top = parseFloat(getComputedStyle(enemiesContainer).top) || 0;
     let left = parseFloat(getComputedStyle(enemiesContainer).left) || 0;
@@ -76,3 +76,82 @@ function moveFormation() {
     enemiesContainer.style.left = `${left}px`;
     enemiesContainer.style.top = `${top}px`;
 }
+
+let enemyBullets = [];
+
+// Function to update the lives display
+function updateLives() {
+    const livesDisplay = document.getElementById("lives");
+    livesDisplay.textContent = `Lives: ${lives}`;
+}
+
+// Function to make an enemy shoot a bullet
+function enemyShootBullet() {
+    const enemiesContainer = document.getElementById("enemy-formation");
+    const enemyElements = enemiesContainer.querySelectorAll(".enemy");
+
+    if (enemyElements.length === 0) return;
+
+    // Choose a random enemy
+    const randomEnemyIndex = Math.floor(Math.random() * enemyElements.length);
+    const randomEnemy = enemyElements[randomEnemyIndex];
+
+    // Create a bullet
+    const bullet = document.createElement("div");
+    bullet.className = "enemy-bullet";
+    bullet.style.position = "absolute";
+    bullet.style.width = "5px";
+    bullet.style.height = "10px";
+    bullet.style.backgroundColor = "red";
+
+    // Position the bullet below the enemy
+    const enemyRect = randomEnemy.getBoundingClientRect();
+    const gameContainerRect = document.getElementById("game-container").getBoundingClientRect();
+    bullet.style.left = `${enemyRect.left + enemyRect.width / 2 - gameContainerRect.left}px`;
+    bullet.style.top = `${enemyRect.bottom - gameContainerRect.top}px`;
+
+    // Add the bullet to the game container
+    document.getElementById("game-container").appendChild(bullet);
+
+    // Add the bullet to the enemyBullets array
+    enemyBullets.push({ element: bullet, y: enemyRect.bottom - gameContainerRect.top });
+}
+
+function moveEnemyBullets() {
+    const player = document.getElementById("player");
+    const playerRect = player.getBoundingClientRect();
+    const gameContainerRect = document.getElementById("game-container").getBoundingClientRect();
+
+    enemyBullets.forEach((bullet, index) => {
+        bullet.y += 5;
+        bullet.element.style.top = `${bullet.y}px`;
+
+        // Check for collision with the player
+        if (
+            bullet.element.getBoundingClientRect().left < playerRect.right &&
+            bullet.element.getBoundingClientRect().right > playerRect.left &&
+            bullet.element.getBoundingClientRect().top < playerRect.bottom &&
+            bullet.element.getBoundingClientRect().bottom > playerRect.top
+        ) {
+            // Remove bullet on collision
+            bullet.element.remove();
+            enemyBullets.splice(index, 1);
+
+            lives--;
+            updateLives();
+
+            // Check if game over
+            if (lives <= 0) {
+                endGame();
+            }
+        }
+
+        // Remove bullet if it goes off-screen
+        if (bullet.y > gameContainerRect.height) {
+            bullet.element.remove();
+            enemyBullets.splice(index, 1);
+        }
+    });
+}
+
+setInterval(enemyShootBullet, 350);

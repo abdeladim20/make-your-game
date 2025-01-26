@@ -69,6 +69,14 @@ body {
     background-color: yellow;
 }
 
+.enemy-bullet {
+    position: absolute;
+    width: 5px;
+    height: 10px;
+    background-color: red;
+    border-radius: 2px;
+}
+
 #enemy-formation {
     position: absolute;
     display: grid;

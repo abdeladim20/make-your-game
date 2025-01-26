@@ -17,7 +17,7 @@ function updateScore(points) {
     document.getElementById("score").innerText = `Score: ${score}`;
 }
 
-function updateLives(change) {
-    lives += change;
-    document.getElementById("lives").innerText = `Lives: ${lives}`;
-}
+// function updateLives(change) {
+//     lives += change;
+//     document.getElementById("lives").innerText = `Lives: ${lives}`;
+// }

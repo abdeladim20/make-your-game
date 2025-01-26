@@ -75,10 +75,8 @@ function endGame() {
     // alert("Game Over! Final Score: " + score); // Show game over message
     // return
     cancelAnimationFrame(req);
-    
     end.style.display = "block";
     end.appendChild(s)
-    
     game.classList.add("blured")
 }
 
