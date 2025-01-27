@@ -8,6 +8,7 @@ function spawnEnemyFormation(rows, cols) {
     formation = document.createElement("div");
     formation.id = "enemy-formation";
     formation.style.position = "absolute";
+    formation.style.margin = "0";
     formation.style.top = "50px"; // Initial position
     formation.style.left = "50px";
     formation.style.width = `${cols * 50}px`; // Adjust based on enemy width
@@ -55,7 +56,7 @@ function moveFormation() {
     let top = parseFloat(getComputedStyle(enemiesContainer).top) || 0;
     let left = parseFloat(getComputedStyle(enemiesContainer).left) || 0;
 
-    const step = 5; // Movement step size
+    const step = 2;
     if (formationDirection === 1) {
         if (rightMost + step < gameRect.right) {
             left += step;
@@ -155,4 +156,4 @@ function moveEnemyBullets() {
     });
 }
 
-setInterval(enemyShootBullet, 350);
+setInterval(enemyShootBullet, 600);
