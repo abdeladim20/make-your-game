@@ -19,12 +19,12 @@ body {
     background-color: #000;
     border: 2px solid white;
     overflow: hidden;
-    display: flex;
+    display: none;
     flex-direction: column; /* For better stacking */
     align-items: center;
 }
 
-#ui {
+/* #ui {
     position: absolute;
     top: 0;
     left: 0;
@@ -37,7 +37,7 @@ body {
 }
 
 /* Center the Start Game button */
-#start-button {
+/* #start-button {
     position: fixed;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -50,14 +50,14 @@ body {
     border: 2px solid white;
     border-radius: 5px;
     transition: background-color 0.3s ease, transform 0.3s ease;
-    z-index: 20; /*Ensure it stays above the game container */
-}
+    /* z-index: 20; Ensure it stays above the game container */
+ */
 
 /* Add a hover effect for the button */
-#start-button:hover {
+/* #start-button:hover {
     background-color: #555;
     transform: translate(-50%, -50%) scale(1.1); /* Slightly enlarge on hover */
-}
+ */ */
 
 /* Blur the game container when start button is visible */
 .blurred {
@@ -137,9 +137,7 @@ body {
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); 
     animation: fadeIn 0.5s ease-in-out;
 }
-#game-container {
-    background-color: transparent;
-}
+
 
 .blured {
     filter: blur(10px);
@@ -208,5 +206,61 @@ body {
 
     #score, #lives {
         font-size: 14px;
+    }
+}
+
+
+#ui {
+    /* Center content both vertically and horizontally */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+
+}
+
+h1 {
+    font-family: 'Press Start 2P', monospace; /* Retro gaming font */
+    color: #0f0; /* Classic green text */
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 0 0 10px #0f0; /* Glowing effect */
+    
+    /* Responsive font size */
+    font-size: clamp(1.5rem, 5vw, 3rem);
+}
+
+#start-button {
+    background-color: transparent;
+    border: 2px solid #0f0;
+    color: #0f0;
+    padding: 15px 30px;
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#start-button:hover {
+    background-color: #0f0;
+    color: #000;
+    transform: scale(1.1);
+}
+
+/* Media queries for additional responsiveness */
+@media (max-width: 768px) {
+    #ui {
+        padding: 10px;
+    }
+    
+    h1 {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    #start-button {
+        padding: 10px 20px;
     }
 }
