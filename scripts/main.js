@@ -52,6 +52,11 @@ function gameLoop() {
 
 document.getElementById("start-button").addEventListener("click", () => {
     document.getElementById("ui").style.display = "none"; // Hide the start button
+    document.getElementById("story").style.display = "block";
+});
+
+document.getElementById("begin").addEventListener("click", () => {
+    document.getElementById("story").style.display = "none"; // Hide the start button
     document.getElementById("game-container").style.display = "flex";
     initializeGame(); // Start the game
     spawnEnemyFormation(3, 6); // Spawn enemy formation

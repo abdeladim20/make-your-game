@@ -16,7 +16,7 @@ body {
     height: 90vh; /* Dynamic height based on viewport */
     max-height: 600px; /* Limit height for larger screens */
     margin: 20px auto;
-    background-color: #000;
+    background-color: transparent;
     border: 2px solid white;
     overflow: hidden;
     display: none;
@@ -263,4 +263,52 @@ h1 {
     #start-button {
         padding: 10px 20px;
     }
+}
+
+
+#story {
+    display: none;
+    width: 80%;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background: linear-gradient(145deg, #0a0a0a, #1e1e1e);
+    color: #fff;
+    border: 2px solid #4caf50;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 255, 0, 0.4);
+    font-family: 'Arial', sans-serif;
+}
+
+#story h1 {
+    font-size: 2.5em;
+    color: #4caf50;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
+    margin-bottom: 20px;
+}
+
+#story p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    color: #e0e0e0;
+    margin-bottom: 30px;
+}
+
+#story button {
+    font-size: 1.2em;
+    padding: 10px 20px;
+    color: #0a0a0a;
+    background: #4caf50;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 255, 0, 0.4);
+    transition: background 0.3s, transform 0.2s;
+}
+
+#story button:hover {
+    background: #2e7d32;
+    transform: scale(1.1);
+    color: #fff;
 }
