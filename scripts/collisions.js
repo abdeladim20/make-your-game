@@ -35,7 +35,7 @@ function checkBulletCollisions() {
                 // Update appearance
                 enemy.style.backgroundColor = "transparent";
                 enemy.style.backgroundImage = "none";
-
+                update();
                 // Remove the bullet
                 bullet.element.remove();
                 bullets.splice(bulletIndex, 1);
@@ -44,9 +44,11 @@ function checkBulletCollisions() {
                 updateScore(10);
 
                 // Check if all enemies are killed
-                if (enemiesContainer.querySelectorAll(".enemy:not(.killed)").length === 0) {
-                    endGame();
-                }
+                // if (enemiesContainer.querySelectorAll(".enemy:not(.killed)").length === 0) {
+                //     // console.log(enemies.length == 0)
+                //     endGame();
+                // }
+                checkGameOver()
             }
         });
     });

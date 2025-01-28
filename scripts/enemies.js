@@ -1,10 +1,9 @@
 let enemies = [];
 let formation = null;
-let formationDirection = 1; // 1 for right, -1 for left
+let formationDirection = 1;
 
 function spawnEnemyFormation(rows, cols) {
     const gameContainer = document.getElementById("game-container");
-    // Create the formation container
     formation = document.createElement("div");
     formation.id = "enemy-formation";
     formation.style.position = "absolute";
@@ -71,7 +70,6 @@ function moveFormation() {
             top += 20; // Move down when hitting the left border
         }
     }
-
     // Update position
     enemiesContainer.style.left = `${left}px`;
     enemiesContainer.style.top = `${top}px`;
@@ -87,34 +85,38 @@ function updateLives() {
 
 // Function to make an enemy shoot a bullet
 function enemyShootBullet() {
-    const enemiesContainer = document.getElementById("enemy-formation");
-    const enemyElements = enemiesContainer.querySelectorAll(".enemy");
 
-    if (enemyElements.length === 0) return;
+    const enemiesContainer = document.getElementById("enemy-formation")
+    if (enemiesContainer) {
 
-    // Choose a random enemy
-    const randomEnemyIndex = Math.floor(Math.random() * enemyElements.length);
-    const randomEnemy = enemyElements[randomEnemyIndex];
+        const enemyElements = enemiesContainer.querySelectorAll(".enemy:not(.killed)");
 
-    // Create a bullet
-    const bullet = document.createElement("div");
-    bullet.className = "enemy-bullet";
-    bullet.style.position = "absolute";
-    bullet.style.width = "5px";
-    bullet.style.height = "10px";
-    bullet.style.backgroundColor = "red";
+        if (enemyElements.length === 0) return;
 
-    // Position the bullet below the enemy
-    const enemyRect = randomEnemy.getBoundingClientRect();
-    const gameContainerRect = document.getElementById("game-container").getBoundingClientRect();
-    bullet.style.left = `${enemyRect.left + enemyRect.width / 2 - gameContainerRect.left}px`;
-    bullet.style.top = `${enemyRect.bottom - gameContainerRect.top}px`;
+        // Choose a random enemy
+        const randomEnemyIndex = Math.floor(Math.random() * enemyElements.length);
+        const randomEnemy = enemyElements[randomEnemyIndex];
 
-    // Add the bullet to the game container
-    document.getElementById("game-container").appendChild(bullet);
+        // Create a bullet
+        const bullet = document.createElement("div");
+        bullet.className = "enemy-bullet";
+        bullet.style.position = "absolute";
+        bullet.style.width = "5px";
+        bullet.style.height = "10px";
+        bullet.style.backgroundColor = "red";
 
-    // Add the bullet to the enemyBullets array
-    enemyBullets.push({ element: bullet, y: enemyRect.bottom - gameContainerRect.top });
+        // Position the bullet below the enemy
+        const enemyRect = randomEnemy.getBoundingClientRect();
+        const gameContainerRect = document.getElementById("game-container").getBoundingClientRect();
+        bullet.style.left = `${enemyRect.left + enemyRect.width / 2 - gameContainerRect.left}px`;
+        bullet.style.top = `${enemyRect.bottom - gameContainerRect.top}px`;
+
+        // Add the bullet to the game container
+        document.getElementById("game-container").appendChild(bullet);
+
+        // Add the bullet to the enemyBullets array
+        enemyBullets.push({ element: bullet, y: enemyRect.bottom - gameContainerRect.top });
+    }
 }
 
 function moveEnemyBullets() {
@@ -136,11 +138,9 @@ function moveEnemyBullets() {
             // Remove bullet on collision
             bullet.element.remove();
             enemyBullets.splice(index, 1);
-
             lives--;
             updateLives();
 
-            // Check if game over
             if (lives <= 0) {
                 endGame();
             }
@@ -154,4 +154,4 @@ function moveEnemyBullets() {
     });
 }
 
-setInterval(enemyShootBullet, 350);
+const shoot = setInterval(enemyShootBullet, 350);

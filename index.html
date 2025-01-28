@@ -5,18 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Space Invaders</title>
     <link rel="stylesheet" href="/style.css">
-    <script src="scripts/main.js" defer></script>
-    <script src="scripts/player.js" defer></script>
-    <script src="scripts/enemies.js" defer></script>
-    <script src="scripts/collisions.js" defer></script>
-    <script src="scripts/input.js" defer></script>
-    <script src="scripts/ui.js" defer></script>
+
 </head>
 <body>
     <body>
-        <!-- pop game over -->
         <div id="endGame">Game End</div>
-
         <div id="game-container">
             <div id="score">Score: 0</div>
             <div id="lives">Lives: 3</div>
@@ -24,5 +17,15 @@
                 <button id="start-button">Start Game</button>
             </div>
         </div>
+        <div id="pause">
+            <h2>Game Paused</h2>
+            <button onclick="resume()">Resume</button>
+        </div>
+    <script src="scripts/main.js" defer></script>
+    <script src="scripts/player.js" defer></script>
+    <script src="scripts/enemies.js" defer></script>
+    <script src="scripts/collisions.js" defer></script>
+    <script src="scripts/input.js" defer></script>
+    <script src="scripts/ui.js" defer></script>
 </body>
 </html>
