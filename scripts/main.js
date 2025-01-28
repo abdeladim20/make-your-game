@@ -5,6 +5,7 @@ function initializeGame() {
     gameRunning = true;
     isPaused = false;
     resetUI();
+    spawnEnemyFormation(3, 6);
     spawnPlayer();
     gameLoop();
 }
@@ -58,6 +59,5 @@ document.getElementById("start-button").addEventListener("click", () => {
 document.getElementById("begin").addEventListener("click", () => {
     document.getElementById("story").style.display = "none"; // Hide the start button
     document.getElementById("game-container").style.display = "flex";
-    initializeGame(); // Start the game
-    spawnEnemyFormation(3, 6); // Spawn enemy formation
+    countdownandinit(); // Start the game
 });
