@@ -10,8 +10,8 @@ function spawnEnemyFormation(rows, cols) {
     formation.id = "enemy-formation";
     formation.style.position = "absolute";
     formation.style.margin = "0";
-    formation.style.top = "50px"; // Initial position
-    formation.style.left = "50px";
+    formation.style.top = "60px"; // Initial position
+    formation.style.left = "60px";
     formation.style.width = `${cols * 50}px`; // Adjust based on enemy width
     formation.style.height = `${rows * 50}px`; // Adjust based on enemy height
     formation.style.display = "grid";

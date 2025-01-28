@@ -94,8 +94,8 @@ body {
 }
 
 .enemy {
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
     background-image: url('assets/images/enemy.png'); 
     background-size: cover;
     background-position: center;
@@ -304,5 +304,39 @@ h1 {
     text-align: center;
     margin-top: 50px;
     color: white;
+}
+
+/* Styling for the board container */
+#board {
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background: linear-gradient(145deg, #1c1c1c, #2e2e2e);
+    border: 2px solid #4caf50;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 255, 0, 0.4);
+    font-family: 'Arial', sans-serif;
+    color: white;
+}
+
+/* Styling for the individual elements */
+#score, #lives, #counter {
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 8px;
+    background-color: #333;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Add hover effects for a dynamic feel */
+#score:hover, #lives:hover, #counter:hover {
+    background-color: #4caf50;
+    color: black;
+    transition: 0.3s ease;
 }
 

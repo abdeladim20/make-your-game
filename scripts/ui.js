@@ -9,6 +9,7 @@ function updateUI() {
 function resetUI() {
     score = 0;
     lives = 3;
+    document.getElementById("board").style.display = "flex"
     updateUI();
 }
 
