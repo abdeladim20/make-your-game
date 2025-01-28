@@ -100,20 +100,6 @@ body {
     background-size: cover;
     background-position: center;
     border-radius: 50%;
-    background-color: red;
-}
-
-#lives, #score {
-    padding: 10px;
-    font-size: 16px;
-}
-
-#lives {
-    color: aqua;
-}
-
-#score {
-    color: lime;
 }
 
 /* Styling for the endGame popup */
@@ -154,9 +140,9 @@ body {
         padding: 15px 30px;
     }
 
-    #score, #lives {
+    /* #score, #lives {
         font-size: 18px;
-    }
+    } */
 }
 
 /* Tablets (768px - 1023px) */
@@ -171,9 +157,9 @@ body {
         padding: 12px 24px;
     }
 
-    #score, #lives {
+    /* #score, #lives {
         font-size: 16px;
-    }
+    } */
 }
 
 /* Mobile devices (up to 767px) */
@@ -204,9 +190,9 @@ body {
         padding: 15px;
     }
 
-    #score, #lives {
+    /* #score, #lives {
         font-size: 14px;
-    }
+    } */
 }
 
 

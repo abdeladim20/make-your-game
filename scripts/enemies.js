@@ -1,6 +1,7 @@
 let enemies = [];
 let formation = null;
 let formationDirection = 1; // 1 for right, -1 for left
+let enemytrans = true
 
 function spawnEnemyFormation(rows, cols) {
     const gameContainer = document.getElementById("game-container");
@@ -24,7 +25,7 @@ function spawnEnemyFormation(rows, cols) {
         enemy.dataset.index = i; // Unique identifier for each enemy
         enemy.style.width = "40px";
         enemy.style.height = "40px";
-        enemy.style.backgroundImage = "url('assets/images/enemy.png')";
+        enemy.style.backgroundImage = "url('assets/images/inimi2.png')";
         enemy.style.backgroundSize = "cover";
         enemy.style.backgroundPosition = "center";
         formation.appendChild(enemy);
@@ -157,3 +158,21 @@ function moveEnemyBullets() {
 }
 
 setInterval(enemyShootBullet, 600);
+
+function changeEnemyApperance() {
+    const enemiesContainer = document.getElementById("enemy-formation");
+    const enemyElements = enemiesContainer.querySelectorAll(".enemy:not(.killed)");
+    if (enemytrans) {
+        enemyElements.forEach((enemy) =>{
+            enemy.style.backgroundImage = "url('assets/images/inimi1.png')";
+        });
+        enemytrans = false
+    } else {
+        enemyElements.forEach((enemy) =>{
+            enemy.style.backgroundImage = "url('assets/images/inimi2.png')";
+        });
+        enemytrans = true
+    }
+}
+
+setInterval(changeEnemyApperance, 600);
