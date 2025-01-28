@@ -19,7 +19,9 @@ function pause() {
     Array.from(allEnemies).forEach(element => {
         if (isPaused) {
             element.classList.add("paused");
+            game.classList.add("blured")
         } else {
+            game.classList.remove("blured")
             element.classList.remove("paused");
         }
     });
