@@ -61,3 +61,7 @@ document.getElementById("begin").addEventListener("click", () => {
     document.getElementById("game-container").style.display = "flex";
     countdownandinit(); // Start the game
 });
+
+document.getElementById("retry").addEventListener("click", () => {
+    location.reload();
+});
