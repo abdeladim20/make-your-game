@@ -154,4 +154,4 @@ function moveEnemyBullets() {
     });
 }
 
-const shoot = setInterval(enemyShootBullet, 350);
+let shoot = setInterval(enemyShootBullet, 400);
