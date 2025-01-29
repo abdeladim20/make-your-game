@@ -23,6 +23,7 @@ function checkGameOver() {
 function pause() {
     const paused = document.getElementById("pause");
     clearInterval(shoot);
+    clearInterval(animation)
     isPaused = !isPaused;
     paused.style.display = isPaused ? "flex" : "none";
     const enemiesContainer = document.getElementById("enemy-formation");
@@ -42,6 +43,7 @@ function pause() {
     } else {
         // Resume animations or intervals here
         shoot = setInterval(enemyShootBullet, 400)
+        animation = setInterval(changeEnemyApperance, 600)
         document.body.classList.remove('game-paused');
     }
 

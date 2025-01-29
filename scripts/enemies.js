@@ -159,7 +159,7 @@ function moveEnemyBullets() {
     });
 }
 
-setInterval(enemyShootBullet, 600);
+let shoot = setInterval(enemyShootBullet, 600);
 
 function changeEnemyApperance() {
     const enemiesContainer = document.getElementById("enemy-formation");
@@ -179,4 +179,4 @@ function changeEnemyApperance() {
     }
 }
 
-let shoot = setInterval(changeEnemyApperance, 600);
+let animation = setInterval(changeEnemyApperance, 600);
