@@ -47,6 +47,11 @@ function pause() {
 
 }
 
+function resume() {
+    if (isPaused) {
+        pause();
+    }
+}
 // function update() {
 //     const enemiesContainer = document.getElementById("enemy-formation");
 //     const allEnemies = enemiesContainer.querySelectorAll(".enemy");
