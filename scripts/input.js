@@ -2,6 +2,13 @@ const keys = {};
 
 document.addEventListener("keydown", (event) => {
     keys[event.key] = true;
+    if (event.key == "p") {
+       pause();
+    }
+})
+
+document.addEventListener("keydown", (event) => {
+    keys[event.key] = true;
 });
 
 document.addEventListener("keyup", (event) => {

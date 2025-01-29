@@ -90,34 +90,36 @@ function updateLives() {
 // Function to make an enemy shoot a bullet
 function enemyShootBullet() {
     const enemiesContainer = document.getElementById("enemy-formation");
-   // const enemyElements = enemiesContainer.querySelectorAll(".enemy");
-    const enemyElements = enemiesContainer.querySelectorAll(".enemy:not(.killed)");
+    // const enemyElements = enemiesContainer.querySelectorAll(".enemy");
+    if (enemiesContainer) {
+        const enemyElements = enemiesContainer.querySelectorAll(".enemy:not(.killed)");
 
-    if (enemyElements.length === 0) return;
+        if (enemyElements.length === 0) return;
 
-    // Choose a random enemy
-    const randomEnemyIndex = Math.floor(Math.random() * enemyElements.length);
-    const randomEnemy = enemyElements[randomEnemyIndex];
+        // Choose a random enemy
+        const randomEnemyIndex = Math.floor(Math.random() * enemyElements.length);
+        const randomEnemy = enemyElements[randomEnemyIndex];
 
-    // Create a bullet
-    const bullet = document.createElement("div");
-    bullet.className = "enemy-bullet";
-    bullet.style.position = "absolute";
-    bullet.style.width = "5px";
-    bullet.style.height = "10px";
-    bullet.style.backgroundColor = "red";
+        // Create a bullet
+        const bullet = document.createElement("div");
+        bullet.className = "enemy-bullet";
+        bullet.style.position = "absolute";
+        bullet.style.width = "5px";
+        bullet.style.height = "10px";
+        bullet.style.backgroundColor = "red";
 
-    // Position the bullet below the enemy
-    const enemyRect = randomEnemy.getBoundingClientRect();
-    const gameContainerRect = document.getElementById("game-container").getBoundingClientRect();
-    bullet.style.left = `${enemyRect.left + enemyRect.width / 2 - gameContainerRect.left}px`;
-    bullet.style.top = `${enemyRect.bottom - gameContainerRect.top}px`;
+        // Position the bullet below the enemy
+        const enemyRect = randomEnemy.getBoundingClientRect();
+        const gameContainerRect = document.getElementById("game-container").getBoundingClientRect();
+        bullet.style.left = `${enemyRect.left + enemyRect.width / 2 - gameContainerRect.left}px`;
+        bullet.style.top = `${enemyRect.bottom - gameContainerRect.top}px`;
 
-    // Add the bullet to the game container
-    document.getElementById("game-container").appendChild(bullet);
+        // Add the bullet to the game container
+        document.getElementById("game-container").appendChild(bullet);
 
-    // Add the bullet to the enemyBullets array
-    enemyBullets.push({ element: bullet, y: enemyRect.bottom - gameContainerRect.top });
+        // Add the bullet to the enemyBullets array
+        enemyBullets.push({ element: bullet, y: enemyRect.bottom - gameContainerRect.top });
+    }
 }
 
 function moveEnemyBullets() {
@@ -161,18 +163,20 @@ setInterval(enemyShootBullet, 600);
 
 function changeEnemyApperance() {
     const enemiesContainer = document.getElementById("enemy-formation");
-    const enemyElements = enemiesContainer.querySelectorAll(".enemy:not(.killed)");
-    if (enemytrans) {
-        enemyElements.forEach((enemy) =>{
-            enemy.style.backgroundImage = "url('assets/images/inimi1.png')";
-        });
-        enemytrans = false
-    } else {
-        enemyElements.forEach((enemy) =>{
-            enemy.style.backgroundImage = "url('assets/images/inimi2.png')";
-        });
-        enemytrans = true
+    if (enemiesContainer) {
+        const enemyElements = enemiesContainer.querySelectorAll(".enemy:not(.killed)");
+        if (enemytrans) {
+            enemyElements.forEach((enemy) => {
+                enemy.style.backgroundImage = "url('assets/images/inimi1.png')";
+            });
+            enemytrans = false
+        } else {
+            enemyElements.forEach((enemy) => {
+                enemy.style.backgroundImage = "url('assets/images/inimi2.png')";
+            });
+            enemytrans = true
+        }
     }
 }
 
-setInterval(changeEnemyApperance, 600);
+let shoot = setInterval(changeEnemyApperance, 600);
