@@ -100,26 +100,26 @@ function enemyShootBullet() {
     
     if (enemyElements.length === 0) return;
 
-    // Choose a random enemy
-    const randomEnemyIndex = Math.floor(Math.random() * enemyElements.length);
-    const randomEnemy = enemyElements[randomEnemyIndex];
+        // Choose a random enemy
+        const randomEnemyIndex = Math.floor(Math.random() * enemyElements.length);
+        const randomEnemy = enemyElements[randomEnemyIndex];
 
-    // Create a bullet
-    const bullet = document.createElement("div");
-    bullet.className = "enemy-bullet";
-    bullet.style.position = "absolute";
-    bullet.style.width = "5px";
-    bullet.style.height = "10px";
-    bullet.style.backgroundColor = "red";
+        // Create a bullet
+        const bullet = document.createElement("div");
+        bullet.className = "enemy-bullet";
+        bullet.style.position = "absolute";
+        bullet.style.width = "5px";
+        bullet.style.height = "10px";
+        bullet.style.backgroundColor = "red";
 
-    // Position the bullet below the enemy
-    const enemyRect = randomEnemy.getBoundingClientRect();
-    const gameContainerRect = document.getElementById("game-container").getBoundingClientRect();
-    bullet.style.left = `${enemyRect.left + enemyRect.width / 2 - gameContainerRect.left}px`;
-    bullet.style.top = `${enemyRect.bottom - gameContainerRect.top}px`;
+        // Position the bullet below the enemy
+        const enemyRect = randomEnemy.getBoundingClientRect();
+        const gameContainerRect = document.getElementById("game-container").getBoundingClientRect();
+        bullet.style.left = `${enemyRect.left + enemyRect.width / 2 - gameContainerRect.left}px`;
+        bullet.style.top = `${enemyRect.bottom - gameContainerRect.top}px`;
 
-    // Add the bullet to the game container
-    document.getElementById("game-container").appendChild(bullet);
+        // Add the bullet to the game container
+        document.getElementById("game-container").appendChild(bullet);
 
     // Add the bullet to the enemyBullets array
     enemyBullets.push({ element: bullet, y: enemyRect.bottom - gameContainerRect.top });
