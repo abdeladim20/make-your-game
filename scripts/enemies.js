@@ -1,7 +1,7 @@
 let enemies = [];
 let formation = null;
 let formationDirection = 1; // 1 for right, -1 for left
-let mothershipDirection = 1
+let mothershipDirection = 1;
 let enemytrans = true
 
 function spawnEnemyFormation(rows, cols) {
@@ -17,7 +17,6 @@ function spawnEnemyFormation(rows, cols) {
     formation.style.height = `${rows * 50}px`; // Adjust based on enemy height
     formation.style.display = "grid";
     formation.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
-    formation.style.gridGap = "10px";
 
     // Add enemies to the formation
     for (let i = 0; i < rows * cols; i++) {
@@ -90,11 +89,7 @@ function updateLives() {
 
 // Function to make an enemy shoot a bullet
 function enemyShootBullet() {
-    //const enemiesContainer = document.getElementById("enemy-formation");
-   // const enemyElements = enemiesContainer.querySelectorAll(".enemy");
-
    const enemiesContainers = document.querySelectorAll("#enemy-formation");
-   // const enemiesContainer = document.getElementById("enemy-formation");
    enemiesContainers.forEach((enemiesContainer) => {
     const enemyElements = enemiesContainer.querySelectorAll(".enemy:not(.killed)");
     
@@ -110,7 +105,6 @@ function enemyShootBullet() {
         bullet.style.position = "absolute";
         bullet.style.width = "5px";
         bullet.style.height = "10px";
-        bullet.style.backgroundColor = "red";
 
         // Position the bullet below the enemy
         const enemyRect = randomEnemy.getBoundingClientRect();
@@ -132,7 +126,7 @@ function moveEnemyBullets() {
     const gameContainerRect = document.getElementById("game-container").getBoundingClientRect();
 
     enemyBullets.forEach((bullet, index) => {
-        bullet.y += 5;
+        bullet.y += 7;
         bullet.element.style.top = `${bullet.y}px`;
 
         // Check for collision with the player
@@ -254,7 +248,6 @@ function mothershipSpawnEnemies() {
     formation.style.height = `50px`;
     formation.style.display = "grid";
     formation.style.gridTemplateColumns = "repeat(3, 1fr)"; // Three enemies per row
-    formation.style.gridGap = "10px";
 
     // Position the formation at the mothership's location
     formation.style.left = `${mothershipRect.left - gameContainerRect.left}px`;
@@ -284,7 +277,7 @@ function moveEnemy() {
 
     formations.forEach((formation) => {
         let formationY = parseInt(formation.style.top) || 0;
-        formationY += 1;
+        formationY += 3;
         formation.style.top = `${formationY}px`;
 
         // Remove formation if it reaches the bottom
@@ -293,6 +286,6 @@ function moveEnemy() {
         }
     });
 }
-setInterval(mothershipSpawnEnemies, 2000);
+setInterval(mothershipSpawnEnemies, 1700);
 setInterval(changeEnemyApperance, 600);
-setInterval(enemyShootBullet, 600);
+setInterval(enemyShootBullet, 700);

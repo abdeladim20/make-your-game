@@ -44,14 +44,3 @@ function countdownandinit() {
         }
     }, 1000); // Run every 1 second
 }
-
-// Example usage:
-// countdown(3, () => {
-//     const countdownElement = document.getElementById('countdown');
-//     countdownElement.textContent = "Go!"; // Update the DOM to show "Go!"
-//     console.log("Countdown complete!");
-// });
-// function updateLives(change) {
-//     lives += change;
-//     document.getElementById("lives").innerText = `Lives: ${lives}`;
-// }

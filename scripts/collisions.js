@@ -31,10 +31,14 @@ function checkBulletCollisions() {
             ) {
                 // Mark enemy as killed
                 enemy.classList.add("killed");
+                enemy.style.backgroundImage = "url('assets/images/explo1.png')";
 
-                // Update appearance
-                enemy.style.backgroundColor = "transparent";
-                enemy.style.backgroundImage = "none";
+                setTimeout(() => {
+                    enemy.style.backgroundImage = "url('assets/images/explo2.png')";
+                }, 300)
+                setTimeout(() => {
+                    enemy.style.backgroundImage = "none";
+                }, 300)
 
                 // Remove the bullet
                 bullet.element.remove();
@@ -47,6 +51,7 @@ function checkBulletCollisions() {
                 if (enemiesContainer.querySelectorAll(".enemy:not(.killed)").length === 0 && phase == 1)  {
                     game.innerHTML = '<div id="countdown"></div>';
                     game.style.display= "none"
+                    document.getElementById("board").style.display = "none";
                     stopGameLoop()
                     phase = 2;
                     document.querySelectorAll(".mid").forEach(element => {
@@ -93,7 +98,12 @@ function checkBulletsMothership() {
             bullets.splice(bulletIndex, 1);
             mothershiplives--;
             if (mothershiplives == 0) {
-                endGame()
+                game.style.display= "none"
+                document.getElementById("board").style.display = "none";
+                stopGameLoop()
+                document.querySelectorAll(".late").forEach(element => {
+                    element.style.display = "block";
+                });
             }
         }})
 
@@ -103,8 +113,6 @@ function checkBulletsMothership() {
 function endGame() {
     gameRunning = false;  // Stop the game loop
     isPaused = true;     // Optionally pause everything
-    // alert("Game Over! Final Score: " + score); // Show game over message
-    // return
     cancelAnimationFrame(req);
     end.style.display = "block";
     end.appendChild(s)
@@ -122,7 +130,6 @@ function shootBullet() {
     bullet.style.position = "absolute";
     bullet.style.width = "5px";
     bullet.style.height = "10px";
-    bullet.style.backgroundColor = "yellow";
     bullet.style.left = `${playerPosition + 22.5}px`; 
     bullet.style.bottom = "70px";
 
@@ -137,7 +144,7 @@ function shootBullet() {
 function moveEntities() {
     // Move bullets
     bullets.forEach((bullet, index) => {
-        bullet.y += 5; // Move upwards
+        bullet.y += 7; // Move upwards
         bullet.element.style.bottom = `${bullet.y}px`;
 
         // Remove bullet if it moves off-screen

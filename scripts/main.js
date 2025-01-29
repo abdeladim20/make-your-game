@@ -20,10 +20,11 @@ function initializeGame1() {
 function initializeGame2() {
     gameRunning = true;
     isPaused = false;
-    resetUI();
+    game.style.display = "flex"
+    document.getElementById("board").style.display = "flex";
     spawnMotherShip();
     spawnPlayer();
-    gameLoop();
+    //gameLoop();
 }
 
 
@@ -70,23 +71,6 @@ function resume() {
         pause();
     }
 }
-// function update() {
-//     const enemiesContainer = document.getElementById("enemy-formation");
-//     const allEnemies = enemiesContainer.querySelectorAll(".enemy");
-
-//     // Check if all enemies have the 'killed' class
-//     const allKilled = Array.from(allEnemies).every(enemy => enemy.classList.contains("killed"))
-//     // const allKilled = (allEnemies.classList.contains("killed"))
-//     // allKilled.remove();
-//     if (allKilled) {
-//         allKilled.forEach((e, i) => {
-//             if (e.classList.contains("")) {
-//                 e.remove();
-//                 e.splice(i, 1)
-//             }
-//         });
-//     }
-// }
 
 function gameLoop() {
     if (!isPaused && gameRunning) {
@@ -131,5 +115,9 @@ document.getElementById("next").addEventListener("click", () => {
 });
 
 document.getElementById("retry").addEventListener("click", () => {
+    location.reload();
+});
+
+document.getElementById("again").addEventListener("click", () => {
     location.reload();
 });
