@@ -1,15 +1,18 @@
 let score = 0;
 let lives = 3;
+let mothershiplives = 10;
 
 function updateUI() {
     document.getElementById("score").textContent = `Score: ${score}`;
     document.getElementById("lives").textContent = `Lives: ${lives}`;
+    document.getElementById("mslives").textContent = `Mothership: ${mothershiplives}`;
 }
 
 function resetUI() {
     score = 0;
     lives = 3;
-    document.getElementById("board").style.display = "flex"
+    game.style.display = "flex"
+    document.getElementById("board").style.display = "flex";
     updateUI();
 }
 
@@ -20,7 +23,7 @@ function updateScore(points) {
 
 
 function countdownandinit() {
-    let current = 3;
+    let current = 1;
 
     const countdownElement = document.getElementById('countdown');
 
@@ -31,7 +34,11 @@ function countdownandinit() {
         if (current === 0) {
             countdownElement.style.display = "none"; 
             clearInterval(interval); // Stop the countdown
-            initializeGame(); // Execute the provided function
+            if (phase == 1) {
+                initializeGame1(); // Execute the provided function
+            } else {
+                initializeGame2();
+            }
         } else {
             current--;
         }

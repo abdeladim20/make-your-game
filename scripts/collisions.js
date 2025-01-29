@@ -6,13 +6,13 @@ const game = document.getElementById('game-container');
 const s = document.getElementById('score')
 
 function checkBulletCollisions() {
-    const enemiesContainer = document.getElementById("enemy-formation");
+    const formations = document.querySelectorAll("#enemy-formation");
     const player = document.getElementById("player");
 
-    if (!enemiesContainer || !player) return;
+    if (!formations || !player) return;
 
     const playerRect = player.getBoundingClientRect();
-
+    formations.forEach((enemiesContainer) => {
     // Check collisions between bullets and enemies
     bullets.forEach((bullet, bulletIndex) => {
         const bulletRect = bullet.element.getBoundingClientRect();
@@ -44,8 +44,14 @@ function checkBulletCollisions() {
                 updateScore(10);
 
                 // Check if all enemies are killed
-                if (enemiesContainer.querySelectorAll(".enemy:not(.killed)").length === 0) {
-                    endGame();
+                if (enemiesContainer.querySelectorAll(".enemy:not(.killed)").length === 0 && phase == 1)  {
+                    game.innerHTML = '<div id="countdown"></div>';
+                    game.style.display= "none"
+                    stopGameLoop()
+                    phase = 2;
+                    document.querySelectorAll(".mid").forEach(element => {
+                        element.style.display = "block";
+                    });
                 }
             }
         });
@@ -66,7 +72,32 @@ function checkBulletCollisions() {
             endGame();
         }
     });
+ });
 }
+
+function checkBulletsMothership() {
+    const player = document.getElementById("player");
+    const mothership = document.getElementById("mothership");
+
+    if (!mothership || !player) return;
+    const shipRec = mothership.getBoundingClientRect();
+    bullets.forEach((bullet, bulletIndex) => {
+        const bulletRect = bullet.element.getBoundingClientRect();
+        if (
+            bulletRect.left < shipRec.right &&
+            bulletRect.right > shipRec.left &&
+            bulletRect.top < shipRec.bottom &&
+            bulletRect.bottom > shipRec.top
+        ) {
+            bullet.element.remove();
+            bullets.splice(bulletIndex, 1);
+            mothershiplives--;
+            if (mothershiplives == 0) {
+                endGame()
+            }
+        }})
+
+} 
 
 
 function endGame() {

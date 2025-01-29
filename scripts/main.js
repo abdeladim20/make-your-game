@@ -1,11 +1,27 @@
 let isPaused = false;
 let gameRunning = false;
+let req;
+let phase = 1;
 
-function initializeGame() {
+function stopGameLoop() {
+    cancelAnimationFrame(req);
+    gameRunning = false; // Set a flag if needed
+}
+
+function initializeGame1() {
     gameRunning = true;
     isPaused = false;
     resetUI();
     spawnEnemyFormation(3, 6);
+    spawnPlayer();
+    gameLoop();
+}
+
+function initializeGame2() {
+    gameRunning = true;
+    isPaused = false;
+    resetUI();
+    spawnMotherShip();
     spawnPlayer();
     gameLoop();
 }
@@ -16,36 +32,25 @@ function checkGameOver() {
     const allEnemies = enemiesContainer.querySelectorAll(".enemy");
     const allKilled = Array.from(allEnemies).every(enemy => enemy.classList.contains("killed"))
     if (allKilled) {
-        endGame();
+
+        //endGame();
     }
 }
-
-// function update() {
-//     const enemiesContainer = document.getElementById("enemy-formation");
-//     const allEnemies = enemiesContainer.querySelectorAll(".enemy");
-
-//     // Check if all enemies have the 'killed' class
-//     const allKilled = Array.from(allEnemies).every(enemy => enemy.classList.contains("killed"))
-//     // const allKilled = (allEnemies.classList.contains("killed"))
-//     // allKilled.remove();
-//     if (allKilled) {
-//         allKilled.forEach((e, i) => {
-//             if (e.classList.contains("")) {
-//                 e.remove();
-//                 e.splice(i, 1)
-//             }
-//         });
-//     }
-// }
 
 function gameLoop() {
     if (!isPaused && gameRunning) {
         moveEntities();
-        moveFormation();
         movePlayer();
         moveEnemyBullets();
         checkBulletCollisions();
         updateUI();
+        if (phase == 2) {
+            moveEnemy()
+            moveMothership();
+            checkBulletsMothership();
+        } else {
+            moveFormation();
+        }
     }
     req = requestAnimationFrame(gameLoop);
 }
@@ -53,13 +58,25 @@ function gameLoop() {
 
 document.getElementById("start-button").addEventListener("click", () => {
     document.getElementById("ui").style.display = "none"; // Hide the start button
-    document.getElementById("story").style.display = "block";
+    document.querySelectorAll(".early").forEach(element => {
+        element.style.display = "block";
+    });
 });
 
 document.getElementById("begin").addEventListener("click", () => {
-    document.getElementById("story").style.display = "none"; // Hide the start button
+    document.querySelectorAll(".early").forEach(element => {
+        element.style.display = "none";
+    });
     document.getElementById("game-container").style.display = "flex";
     countdownandinit(); // Start the game
+});
+
+document.getElementById("next").addEventListener("click", () => {
+    document.querySelectorAll(".mid").forEach(element => {
+        element.style.display = "none";
+    });
+    document.getElementById("game-container").style.display = "flex";
+    countdownandinit()
 });
 
 document.getElementById("retry").addEventListener("click", () => {
