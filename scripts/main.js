@@ -20,6 +20,33 @@ function checkGameOver() {
     }
 }
 
+function pause() {
+    const paused = document.getElementById("pause");
+    clearInterval(shoot);
+    isPaused = !isPaused;
+    paused.style.display = isPaused ? "flex" : "none";
+    const enemiesContainer = document.getElementById("enemy-formation");
+    const allEnemies = enemiesContainer.querySelectorAll(".enemy");
+    Array.from(allEnemies).forEach(element => {
+        if (isPaused) {
+            element.classList.add("paused");
+            game.classList.add("blured")
+        } else {
+            game.classList.remove("blured")
+            element.classList.remove("paused");
+        }
+    });
+    if (isPaused) {
+        // Stop any animations or intervals here
+        document.body.classList.add('game-paused');
+    } else {
+        // Resume animations or intervals here
+        shoot = setInterval(enemyShootBullet, 400)
+        document.body.classList.remove('game-paused');
+    }
+
+}
+
 // function update() {
 //     const enemiesContainer = document.getElementById("enemy-formation");
 //     const allEnemies = enemiesContainer.querySelectorAll(".enemy");
