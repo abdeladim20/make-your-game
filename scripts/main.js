@@ -52,19 +52,19 @@ function checkGameOver() {
     }
 }
 
-function update() {
-    const enemiesContainer = document.getElementById("enemy-formation");
-    const allEnemies = enemiesContainer.querySelectorAll(".enemy");
-    const allKilled = Array.from(allEnemies).some(enemy => enemy.classList.contains("killed"))
-    if (allKilled) {
-        allEnemies.forEach((e, i) => {
-            if (e.classList.contains("")) {
-                e.remove();
-                e.splice(i, 1)
-            }
-        });
-    }
-}
+// function update() {
+//     const enemiesContainer = document.getElementById("enemy-formation");
+//     const allEnemies = enemiesContainer.querySelectorAll(".enemy");
+//     const allKilled = Array.from(allEnemies).some(enemy => enemy.classList.contains("killed"))
+
+//     allEnemies.forEach((e, i) => {
+//         if (e.classList.contains("killed")) {
+//             console.log(e);
+//             e.remove();
+//             Array.from(allEnemies).splice(i, 1)
+//         }
+//     });
+// }
 
 function gameLoop() {
     if (!isPaused && gameRunning) {

@@ -33,22 +33,18 @@ function checkBulletCollisions() {
                 enemy.classList.add("killed");
 
                 // Update appearance
-                enemy.style.backgroundColor = "transparent";
-                enemy.style.backgroundImage = "none";
-                update();
-                // Remove the bullet
+                // enemy.style.backgroundColor = "transparent";
+                // enemy.style.backgroundImage = "none";
+                
+                // Remove enemy from DOM
+                setTimeout(() => {
+                    enemy.remove();
+                }, 10);
+
                 bullet.element.remove();
                 bullets.splice(bulletIndex, 1);
-
-                // Update score
                 updateScore(10);
-
-                // Check if all enemies are killed
-                // if (enemiesContainer.querySelectorAll(".enemy:not(.killed)").length === 0) {
-                //     // console.log(enemies.length == 0)
-                //     endGame();
-                // }
-                checkGameOver()
+                checkGameOver();
             }
         });
     });
@@ -72,10 +68,8 @@ function checkBulletCollisions() {
 
 
 function endGame() {
-    gameRunning = false;  // Stop the game loop
-    isPaused = true;     // Optionally pause everything
-    // alert("Game Over! Final Score: " + score); // Show game over message
-    // return
+    gameRunning = false;
+    isPaused = true;
     cancelAnimationFrame(req);
     end.style.display = "block";
     end.appendChild(s)
@@ -86,7 +80,7 @@ function endGame() {
 
 function shootBullet() {
     const player = document.getElementById("player");
-    if (!player||!canShoot) return;
+    if (!player || !canShoot) return;
     canShoot = false;
     const bullet = document.createElement("div");
     bullet.className = "bullet";
@@ -94,7 +88,7 @@ function shootBullet() {
     bullet.style.width = "5px";
     bullet.style.height = "10px";
     bullet.style.backgroundColor = "yellow";
-    bullet.style.left = `${playerPosition + 22.5}px`; 
+    bullet.style.left = `${playerPosition + 22.5}px`;
     bullet.style.bottom = "70px";
 
     document.getElementById("game-container").appendChild(bullet);
