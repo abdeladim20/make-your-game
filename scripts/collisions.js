@@ -134,8 +134,6 @@ function endGame() {
     game.classList.add("blured")
 }
 
-
-
 function shootBullet() {
     const player = document.getElementById("player");
     if (!player||!canShoot) return;

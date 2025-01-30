@@ -72,7 +72,6 @@ function pause() {
         startTimer();
         document.body.classList.remove('game-paused');
     }
-
 }
 
 function resume() {

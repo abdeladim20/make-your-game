@@ -2,7 +2,7 @@ const keys = {};
 
 document.addEventListener("keydown", (event) => {
     keys[event.key] = true;
-    if (event.key == "p") {
+    if (event.key == "p" && gameRunning == true) {
        pause();
     }
 })
