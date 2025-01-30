@@ -104,6 +104,7 @@ function checkBulletsMothership() {
             bullet.element.remove();
             bullets.splice(bulletIndex, 1);
             mothershiplives--;
+            takeDamage(mothership);
             updateMSLives();
             if (mothershiplives == 0) {
                 updateScore(300);

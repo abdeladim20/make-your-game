@@ -20,7 +20,7 @@ function livesvisual() {
         heart.id = "heart";
         heart.style.width = "20px";
         heart.style.height = "20px";
-        heart.style.backgroundImage = "url('assets/images/heart.png')";
+        heart.style.backgroundImage = "url('assets/images/wheart.png')";
         heart.style.backgroundSize = "cover";
         heart.style.backgroundPosition = "center";
         livesdiv.appendChild(heart)

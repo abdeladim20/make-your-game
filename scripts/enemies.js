@@ -157,6 +157,7 @@ function moveEnemyBullets() {
 
             lives--;
             updateLives();
+            takeDamage(player);
 
             // Check if game over
             if (lives <= 0) {
@@ -304,7 +305,7 @@ function moveEnemy() {
 
 function startEnemyActions() {
     if (phase == 2) {
-        MSenemies = setInterval(mothershipSpawnEnemies, 1700);
+        MSenemies = setInterval(mothershipSpawnEnemies, 1000);
     }
     enemyChange = setInterval(changeEnemyApperance, 600);
     enemyshooting = setInterval(enemyShootBullet, 700);
@@ -316,4 +317,11 @@ function stopEnemyActions() {
     }
     clearInterval(enemyChange);
     clearInterval(enemyshooting);
+}
+
+function takeDamage(element) {
+    element.style.filter= `invert(50%) sepia(100%) saturate(5000%) hue-rotate(0deg)`;
+    setTimeout(()=>{
+        element.style.filter= ``;
+    }, 100)
 }

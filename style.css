@@ -346,3 +346,7 @@ h1 {
     align-items: center;
 }
 
+#lives div {
+    filter: invert(50%) sepia(100%) saturate(5000%) hue-rotate(0deg);
+}
+
