@@ -128,17 +128,17 @@ function checkBulletsMothership() {
 
 function endGame() {
     document.getElementById("board").style.display = "none";
-    gameRunning = false;  // Stop the game loop
-    isPaused = true;     // Optionally pause everything
+    gameRunning = false;
+    isPaused = true;
     stopEnemyActions();
     stopTimer();
+    clearInterval(enemyChange);
+    clearInterval(enemyshooting);
     cancelAnimationFrame(req);
     end.style.display = "block";
     end.appendChild(s)
     game.classList.add("blured")
 }
-
-
 
 function shootBullet() {
     const player = document.getElementById("player");
@@ -163,13 +163,13 @@ function shootBullet() {
 function moveEntities() {
     // Move bullets
     bullets.forEach((bullet, index) => {
-        bullet.y += 7; // Move upwards
+        bullet.y += 7;
         bullet.element.style.bottom = `${bullet.y}px`;
 
         // Remove bullet if it moves off-screen
-        if (bullet.y > 600) {
-            bullet.element.remove(); 
-            bullets.splice(index, 1); 
+        if (bullet.y > 850) {
+            bullet.element.remove(); // Remove from DOM
+            bullets.splice(index, 1); // Remove from array
         }
     });
 }

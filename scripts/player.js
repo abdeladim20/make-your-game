@@ -22,7 +22,7 @@ function movePlayer() {
     }
     if (keys["ArrowRight"]) {
         image = "url('assets/images/playerright.png')"
-        playerPosition = Math.min(750, playerPosition + playerSpeed);
+        playerPosition = Math.min(781, playerPosition + playerSpeed);
     }
     if (keys[" "] && gameRunning && canShoot) {
         shootBullet()
