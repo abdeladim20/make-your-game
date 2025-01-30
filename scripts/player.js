@@ -24,6 +24,9 @@ function movePlayer() {
         image = "url('assets/images/playerright.png')"
         playerPosition = Math.min(750, playerPosition + playerSpeed);
     }
+    if (keys[" "] && gameRunning && canShoot) {
+        shootBullet()
+    }
 
     const player = document.getElementById("player");
     if (player) {
