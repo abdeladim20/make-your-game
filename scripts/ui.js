@@ -4,8 +4,25 @@ let mothershiplives = 10;
 
 function updateUI() {
     document.getElementById("score").textContent = `Score: ${score}`;
-    document.getElementById("lives").textContent = `Lives: ${lives}`;
-    document.getElementById("mslives").textContent = `Mothership: ${mothershiplives}`;
+}
+
+function livesvisual() {
+    let livesdiv = document.getElementById("lives");
+    livesdiv.style.width = `${3 * 20}px`; // Adjust based on enemy width
+    livesdiv.style.height = `${1 * 20}px`; // Adjust based on enemy height
+    livesdiv.style.display = "grid";
+    livesdiv.style.gridTemplateColumns = `repeat(${3}, 1fr)`;
+
+    for (let i = 0; i < lives; i++) {
+        heart = document.createElement("div");
+        heart.id = "heart";
+        heart.style.width = "20px";
+        heart.style.height = "20px";
+        heart.style.backgroundImage = "url('assets/images/heart.png')";
+        heart.style.backgroundSize = "cover";
+        heart.style.backgroundPosition = "center";
+        livesdiv.appendChild(heart)
+    }
 }
 
 function resetUI() {
@@ -29,7 +46,7 @@ function countdownandinit() {
 
     // Function to update the countdown
     const interval = setInterval(() => {
-        countdownElement.textContent = current; // Update the DOM with the current countdown value
+        countdownElement.textContent = current;
 
         if (current === 0) {
             countdownElement.style.display = "none"; 

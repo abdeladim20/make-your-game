@@ -12,6 +12,7 @@ function initializeGame1() {
     gameRunning = true;
     isPaused = false;
     resetUI();
+    livesvisual();
     spawnEnemyFormation(3, 6);
     spawnPlayer();
     gameLoop();

@@ -84,7 +84,7 @@ let enemyBullets = [];
 // Function to update the lives display
 function updateLives() {
     const livesDisplay = document.getElementById("lives");
-    livesDisplay.textContent = `Lives: ${lives}`;
+    
 }
 
 // Function to make an enemy shoot a bullet
