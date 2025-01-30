@@ -1,7 +1,7 @@
 let isPaused = false;
 let gameRunning = false;
 let req;
-let phase = 1;
+let phase = 2;
 
 function stopGameLoop() {
     gameRunning = false;  // Stop the game loop

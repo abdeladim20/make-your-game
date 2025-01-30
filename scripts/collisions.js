@@ -108,12 +108,18 @@ function checkBulletsMothership() {
             updateMSLives();
             if (mothershiplives == 0) {
                 updateScore(300);
-                game.style.display= "none"
-                document.getElementById("board").style.display = "none";
-                stopGameLoop()
-                document.querySelectorAll(".late").forEach(element => {
-                    element.style.display = "block";
-                });
+                stopEnemyActions();
+                despawnEnemies();
+                setTimeout(() => {
+                    stopGameLoop();
+                    document.getElementById("mothershiphp").style.display = "none";
+                    stopTimer();
+                    game.style.display= "none"
+                    document.getElementById("board").style.display = "none";
+                    document.querySelectorAll(".late").forEach(element => {
+                       element.style.display = "block";
+                   });
+                }, 1500);
             }
         }})
 
@@ -162,8 +168,8 @@ function moveEntities() {
 
         // Remove bullet if it moves off-screen
         if (bullet.y > 600) {
-            bullet.element.remove(); // Remove from DOM
-            bullets.splice(index, 1); // Remove from array
+            bullet.element.remove(); 
+            bullets.splice(index, 1); 
         }
     });
 }

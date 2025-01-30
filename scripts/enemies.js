@@ -325,3 +325,23 @@ function takeDamage(element) {
         element.style.filter= ``;
     }, 100)
 }
+
+function despawnEnemies() {
+    const formations = document.querySelectorAll("#enemy-formation");
+    formations.forEach((enemiesContainer) => {
+    const enemyElements = enemiesContainer.querySelectorAll(".enemy:not(.killed)");
+    enemyElements.forEach((enemy) => {
+        const enemyRect = enemy.getBoundingClientRect();
+            enemy.classList.add("killed");
+            enemy.style.backgroundImage = "url('assets/images/explo1.png')";
+
+            setTimeout(() => {
+                enemy.style.backgroundImage = "url('assets/images/explo2.png')";
+            }, 300)
+            setTimeout(() => {
+                enemy.style.backgroundImage = "none";
+            }, 300)
+        });
+        enemiesContainer.remove;
+    });
+}
