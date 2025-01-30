@@ -17,7 +17,9 @@ body {
     max-height: 600px; /* Limit height for larger screens */
     margin: 20px auto;
     background-color: transparent;
-    border: 2px solid white;
+    border: 2px solid #4caf50;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 255, 0, 0.4);
     overflow: hidden;
     display: none;
     flex-direction: column; /* For better stacking */
@@ -309,6 +311,7 @@ h1 {
     box-shadow: 0 4px 15px rgba(0, 255, 0, 0.4);
     font-family: 'Arial', sans-serif;
     color: white;
+    margin-top: 0;
 }
 
 /* Styling for the individual elements */
@@ -326,5 +329,20 @@ h1 {
     background-color: #4caf50;
     color: black;
     transition: 0.3s ease;
+}
+
+#mothershiphp {
+    display: none;
+    border-radius: 8px;
+    border: 2px solid #fff;
+    overflow: hidden;
+    position: relative;
+    padding: 5px 10px;
+    /* Center horizontally */
+    margin-top: 0;
+    margin-bottom: 2px;
+    margin: 0 auto;
+    /* justify-content: space-between; */
+    align-items: center;
 }
 

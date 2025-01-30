@@ -3,6 +3,10 @@ let formation = null;
 let formationDirection = 1; // 1 for right, -1 for left
 let mothershipDirection = 1;
 let enemytrans = true
+let MSenemies;
+let enemyChange;
+let enemyshooting;
+
 
 function spawnEnemyFormation(rows, cols) {
     const gameContainer = document.getElementById("game-container");
@@ -84,7 +88,18 @@ let enemyBullets = [];
 // Function to update the lives display
 function updateLives() {
     const livesDisplay = document.getElementById("lives");
-    
+    const hearts = livesDisplay.querySelectorAll("#heart");
+    if (hearts.length > 0) {
+        hearts[hearts.length - 1].remove(); // Remove the last heart
+    }
+}
+
+function updateMSLives() {
+    const livesDisplay = document.getElementById("mothershiphp");
+    const hearts = livesDisplay.querySelectorAll("#wheart");
+    if (hearts.length > 0) {
+        hearts[hearts.length - 1].remove(); // Remove the last heart
+    }
 }
 
 // Function to make an enemy shoot a bullet
@@ -286,6 +301,19 @@ function moveEnemy() {
         }
     });
 }
-setInterval(mothershipSpawnEnemies, 1700);
-setInterval(changeEnemyApperance, 600);
-setInterval(enemyShootBullet, 700);
+
+function startEnemyActions() {
+    if (phase == 2) {
+        MSenemies = setInterval(mothershipSpawnEnemies, 1700);
+    }
+    enemyChange = setInterval(changeEnemyApperance, 600);
+    enemyshooting = setInterval(enemyShootBullet, 700);
+}
+
+function stopEnemyActions() {
+    if (phase == 2) {
+        clearInterval(MSenemies);
+    }
+    clearInterval(enemyChange);
+    clearInterval(enemyshooting);
+}

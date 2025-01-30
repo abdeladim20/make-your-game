@@ -49,14 +49,17 @@ function checkBulletCollisions() {
 
                 // Check if all enemies are killed
                 if (enemiesContainer.querySelectorAll(".enemy:not(.killed)").length === 0 && phase == 1)  {
-                    game.innerHTML = '<div id="countdown"></div>';
-                    game.style.display= "none"
-                    document.getElementById("board").style.display = "none";
-                    stopGameLoop()
-                    phase = 2;
-                    document.querySelectorAll(".mid").forEach(element => {
-                        element.style.display = "block";
-                    });
+                    stopEnemyActions()
+                    setTimeout(() => {
+                        game.innerHTML = '<div id="countdown"></div>';
+                        game.style.display= "none"
+                        document.getElementById("board").style.display = "none";
+                        stopGameLoop()
+                        phase = 2;
+                        document.querySelectorAll(".mid").forEach(element => {
+                            element.style.display = "block";
+                        });
+                    }, 700);
                 }
             }
         });
@@ -76,6 +79,10 @@ function checkBulletCollisions() {
             // End the game if enemy collides with the player
             endGame();
         }
+        if ( playerRect.top < enemyRect.bottom &&
+            playerRect.bottom > enemyRect.top && phase == 1) {
+                endGame();
+            }
     });
  });
 }
@@ -97,7 +104,9 @@ function checkBulletsMothership() {
             bullet.element.remove();
             bullets.splice(bulletIndex, 1);
             mothershiplives--;
+            updateMSLives();
             if (mothershiplives == 0) {
+                updateScore(300);
                 game.style.display= "none"
                 document.getElementById("board").style.display = "none";
                 stopGameLoop()
@@ -111,8 +120,11 @@ function checkBulletsMothership() {
 
 
 function endGame() {
+    document.getElementById("board").style.display = "none";
     gameRunning = false;  // Stop the game loop
     isPaused = true;     // Optionally pause everything
+    stopEnemyActions();
+    stopTimer();
     cancelAnimationFrame(req);
     end.style.display = "block";
     end.appendChild(s)

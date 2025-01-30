@@ -4,8 +4,9 @@ let req;
 let phase = 1;
 
 function stopGameLoop() {
+    gameRunning = false;  // Stop the game loop
+    isPaused = true;     // Optionally pause everything
     cancelAnimationFrame(req);
-    gameRunning = false; // Set a flag if needed
 }
 
 function initializeGame1() {
@@ -16,16 +17,21 @@ function initializeGame1() {
     spawnEnemyFormation(3, 6);
     spawnPlayer();
     gameLoop();
+    startEnemyActions();
+    startTimer();
 }
 
 function initializeGame2() {
     gameRunning = true;
     isPaused = false;
     game.style.display = "flex"
+    MSlivesvisual();
     document.getElementById("board").style.display = "flex";
     spawnMotherShip();
     spawnPlayer();
-    //gameLoop();
+    startEnemyActions();
+    startTimer();
+    gameLoop();
 }
 
 
@@ -40,8 +46,8 @@ function checkGameOver() {
 
 function pause() {
     const paused = document.getElementById("pause");
-    clearInterval(shoot);
-    clearInterval(animation)
+    stopEnemyActions();
+    stopTimer();
     isPaused = !isPaused;
     paused.style.display = isPaused ? "flex" : "none";
     const enemiesContainer = document.getElementById("enemy-formation");
@@ -60,8 +66,10 @@ function pause() {
         document.body.classList.add('game-paused');
     } else {
         // Resume animations or intervals here
-        shoot = setInterval(enemyShootBullet, 400)
-        animation = setInterval(changeEnemyApperance, 600)
+        // shoot = setInterval(enemyShootBullet, 400)
+        // animation = setInterval(changeEnemyApperance, 600)
+        startEnemyActions();
+        startTimer();
         document.body.classList.remove('game-paused');
     }
 
@@ -70,6 +78,8 @@ function pause() {
 function resume() {
     if (isPaused) {
         pause();
+        stopEnemyActions();
+        stopTimer();
     }
 }
 
