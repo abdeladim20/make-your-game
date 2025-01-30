@@ -1,5 +1,6 @@
 let isPaused = false;
 let gameRunning = false;
+let req
 
 function initializeGame() {
     gameRunning = true;
@@ -46,17 +47,12 @@ function resume() {
 function restart() {
     // Hide pause menu and reset pause state
     isPaused = false;
+    cancelAnimationFrame(req)
     document.getElementById("pause").style.display = "none";
     document.body.classList.remove("game-paused");
     game.classList.remove("blured");
-
-    // Reset game variables
-    speedEnemy = 5;          // Reset enemy speed
-    xx = 0;              // Reset horizontal movement offset for enemies
     playerPosition = 375; // Reset player position to the initial spot
     formationDirection = 1;
-    console.log(speedEnemy);
-    console.log(xx);
 
 
     // Reset UI Elements
@@ -83,9 +79,6 @@ function restart() {
 
     // Restart the game (this will spawn the player and reset any active intervals)
     initializeGame();
-
-
-    // i have to not call the game loop again!!!!!!!!!!1 ; 
 }
 
 
