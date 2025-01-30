@@ -4,86 +4,104 @@ let formationDirection = 1;
 
 function spawnEnemyFormation(rows, cols) {
     const gameContainer = document.getElementById("game-container");
+    const cords = gameContainer.getBoundingClientRect();
     formation = document.createElement("div");
     formation.id = "enemy-formation";
-    formation.style.position = "absolute";
-    formation.style.top = "50px"; // Initial position
-    formation.style.left = "50px";
-    formation.style.width = `${cols * 50}px`; // Adjust based on enemy width
-    formation.style.height = `${rows * 50}px`; // Adjust based on enemy height
-    formation.style.display = "grid";
-    formation.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
-    formation.style.gridGap = "10px";
+    gameContainer.appendChild(formation);
+    formation.style.top = `${cords.top + 20}px`;
+    formation.style.left = `${Math.ceil(cords.left)}px`;
+    formation.style.width = `${cols * 60}px`;
+    formation.style.height = `${rows * 60}px`;
+    formation.style.gridTemplateColumns = `repeat(${cols}, 50px)`;
+    formation.style.gridTemplateRows = `repeat(${rows}, 50px)`;
+    formation.style.gap = "10px";
 
     // Add enemies to the formation
-    for (let i = 0; i < rows * cols; i++) {
-        const enemy = document.createElement("div");
-        enemy.className = "enemy";
-        enemy.dataset.index = i; // Unique identifier for each enemy
-        enemy.style.width = "40px";
-        enemy.style.height = "40px";
-        enemy.style.backgroundImage = "url('assets/images/enemy.png')";
-        enemy.style.backgroundSize = "cover";
-        enemy.style.backgroundPosition = "center";
-        formation.appendChild(enemy);
+    for (let row = 1; row <= rows; row++) {
+        for (let col = 1; col <= cols; col++) {
+            const enemy = document.createElement("div");
+            enemy.className = "enemy";
+            enemy.dataset.index = `${row}-${col}`;
+            enemy.style.gridArea = `${row} / ${col}`;
+            enemy.style.width = "40px";
+            enemy.style.height = "40px";
+            enemy.style.backgroundImage = "url('assets/images/enemy.png')";
+            enemy.style.backgroundSize = "cover";
+            enemy.style.backgroundPosition = "center";
+            formation.appendChild(enemy);
+        }
     }
-
-    gameContainer.appendChild(formation);
 }
+
+let speedEnemy = 5;
+let xx = 0;
 
 function moveFormation() {
-    const enemiesContainer = document.getElementById("enemy-formation");
+    const enemiesCntainer = document.getElementById("enemy-formation");
     const gameContainer = document.getElementById("game-container");
+    if (!enemiesCntainer) {
+        return
+    }
 
-    if (!enemiesContainer || !gameContainer) return;
+    // if (!enemiesCntainer || !gameContainer) return;
 
     const gameRect = gameContainer.getBoundingClientRect();
+    // const remainingEnemies = Array.from(enemiesContainer.querySelectorAll(".enemy:not(.killed)"));
 
-    // Get all remaining enemies
-    const remainingEnemies = Array.from(
-        enemiesContainer.querySelectorAll(".enemy:not(.killed)")
-    );
+    // if (remainingEnemies.length === 0) return; // Stop if no enemies remain
 
-    if (remainingEnemies.length === 0) return; // Stop if no enemies remain
+    // // Get dynamic leftmost and rightmost enemy positions
+    // const leftMost = Math.min(...remainingEnemies.map(enemy => enemy.getBoundingClientRect().left));
+    // const rightMost = Math.max(...remainingEnemies.map(enemy => enemy.getBoundingClientRect().right));
 
-    // Calculate the bounding box for all remaining enemies
-    const leftMost = Math.min(...remainingEnemies.map(enemy => enemy.getBoundingClientRect().left));
-    const rightMost = Math.max(...remainingEnemies.map(enemy => enemy.getBoundingClientRect().right));
-    // const topMost = Math.min(...remainingEnemies.map(enemy => enemy.getBoundingClientRect().top));
+    // // let top = parseFloat(getComputedStyle(enemiesContainer).top) || 0;
+    // // let left = parseFloat(getComputedStyle(enemiesContainer).left) || 0;
+    // const enemiesContainerCords = enemiesCntainer.getBoundingClientRect();
 
-    let top = parseFloat(getComputedStyle(enemiesContainer).top) || 0;
-    let left = parseFloat(getComputedStyle(enemiesContainer).left) || 0;
+    // const step = 5; // Movement step size
 
-    const step = 5; // Movement step size
-    if (formationDirection === 1) {
-        if (rightMost + step < gameRect.right) {
-            left += step;
-        } else {
-            formationDirection = -1;
-            top += 20; // Move down when hitting the right border
-        }
-    } else {
-        if (leftMost - step > gameRect.left) {
-            left -= step;
-        } else {
-            formationDirection = 1;
-            top += 20; // Move down when hitting the left border
-        }
+    // if (formationDirection === 1) {
+    //     if (rightMost + step < gameRect.right) {
+    //         enemiesContainerCords.left += step;
+    //     } else {
+    //         formationDirection *= -1;
+    //         top += 20; // Move down when hitting the right border
+    //     }
+    // } else {
+    //     if (leftMost - step > gameRect.left) {
+    //         left -= step;
+    //     } else {
+    //         formationDirection *= -1;   
+    //         top += 20; // Move down when hitting the left border
+    //     }
+    // }
+
+    // // Update position
+    // enemiesContainer.style.top = `${top}px`;
+    console.log('out', speedEnemy);
+    console.log("out", xx);
+
+
+    const enemiesContainerCords = enemiesCntainer.getBoundingClientRect();
+    if (enemiesContainerCords.right > gameRect.right || enemiesContainerCords.left < gameRect.left) {
+        speedEnemy *= -1;
+        enemiesCntainer.style.top = `${enemiesContainerCords.top + 7}px`
     }
-    // Update position
-    enemiesContainer.style.left = `${left}px`;
-    enemiesContainer.style.top = `${top}px`;
+
+    xx += speedEnemy
+    enemiesCntainer.style.transform = `translateX(${xx}px)`;
 }
+
 
 let enemyBullets = [];
 
-// Function to update the lives display
+// update the lives display
 function updateLives() {
     const livesDisplay = document.getElementById("lives");
     livesDisplay.textContent = `Lives: ${lives}`;
 }
 
-// Function to make an enemy shoot a bullet
+// make an enemy shoot a bullet
 function enemyShootBullet() {
 
     const enemiesContainer = document.getElementById("enemy-formation")
@@ -93,7 +111,6 @@ function enemyShootBullet() {
 
         if (enemyElements.length === 0) return;
 
-        // Choose a random enemy
         const randomEnemyIndex = Math.floor(Math.random() * enemyElements.length);
         const randomEnemy = enemyElements[randomEnemyIndex];
 
@@ -110,8 +127,6 @@ function enemyShootBullet() {
         const gameContainerRect = document.getElementById("game-container").getBoundingClientRect();
         bullet.style.left = `${enemyRect.left + enemyRect.width / 2 - gameContainerRect.left}px`;
         bullet.style.top = `${enemyRect.bottom - gameContainerRect.top}px`;
-
-        // Add the bullet to the game container
         document.getElementById("game-container").appendChild(bullet);
 
         // Add the bullet to the enemyBullets array
@@ -128,14 +143,12 @@ function moveEnemyBullets() {
         bullet.y += 5;
         bullet.element.style.top = `${bullet.y}px`;
 
-        // Check for collision with the player
         if (
             bullet.element.getBoundingClientRect().left < playerRect.right &&
             bullet.element.getBoundingClientRect().right > playerRect.left &&
             bullet.element.getBoundingClientRect().top < playerRect.bottom &&
             bullet.element.getBoundingClientRect().bottom > playerRect.top
         ) {
-            // Remove bullet on collision
             bullet.element.remove();
             enemyBullets.splice(index, 1);
             lives--;

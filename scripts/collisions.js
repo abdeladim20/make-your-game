@@ -39,7 +39,7 @@ function checkBulletCollisions() {
                 // Remove enemy from DOM
                 setTimeout(() => {
                     enemy.remove();
-                }, 10);
+                }, 100);
 
                 bullet.element.remove();
                 bullets.splice(bulletIndex, 1);
