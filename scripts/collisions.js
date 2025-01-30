@@ -126,6 +126,8 @@ function endGame() {
     isPaused = true;     // Optionally pause everything
     stopEnemyActions();
     stopTimer();
+    clearInterval(enemyChange);
+    clearInterval(enemyshooting);
     cancelAnimationFrame(req);
     end.style.display = "block";
     end.appendChild(s)

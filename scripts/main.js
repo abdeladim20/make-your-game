@@ -4,8 +4,8 @@ let req;
 let phase = 1;
 
 function stopGameLoop() {
-    gameRunning = false;  // Stop the game loop
-    isPaused = true;     // Optionally pause everything
+    gameRunning = false;
+    isPaused = true;
     cancelAnimationFrame(req);
 }
 
@@ -78,9 +78,46 @@ function pause() {
 function resume() {
     if (isPaused) {
         pause();
-        stopEnemyActions();
-        stopTimer();
+        // stopEnemyActions();
+        // stopTimer();
     }
+}
+
+function restart() {
+    // Hide pause menu and reset pause state
+    isPaused = false;
+    cancelAnimationFrame(req)
+    document.getElementById("pause").style.display = "none";
+    document.body.classList.remove("game-paused");
+    game.classList.remove("blured");
+    playerPosition = 375; // Reset player position to the initial spot
+    formationDirection = 1;
+
+
+    // Reset UI Elements
+    document.getElementById("score").innerText = "Score: 0";
+    document.getElementById("lives").innerText = "Lives: 3";
+
+    // Remove all existing enemies
+    const enemiesContainer = document.getElementById("enemy-formation");
+    if (enemiesContainer) enemiesContainer.remove();
+
+    // Remove all bullets (enemy and player bullets)
+    document.querySelectorAll(".bullet, .enemy-bullet").forEach(bullet => bullet.remove());
+    enemyBullets = [];
+
+    // Remove existing player before initializing game
+    const existingPlayer = document.getElementById("player");
+    if (existingPlayer) existingPlayer.remove();
+
+    // Clear all existing intervals to prevent speed stacking
+    // clearInterval(shoot);
+
+    // Ensure enemies spawn
+    // spawnEnemyFormation(3, 6); // Manually call this before initializeGame()
+
+    // Restart the game (this will spawn the player and reset any active intervals)
+    initializeGame1()
 }
 
 function gameLoop() {
