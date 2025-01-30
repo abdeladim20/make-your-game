@@ -11,10 +11,14 @@ body {
 
 #game-container {
     position: relative;
-    width: 90%; /* Adjust to fit smaller screens */
-     max-width: 841px; /*Limit width for larger screens */
-    height: 90vh; /* Dynamic height based on viewport */
-     max-height: 850px; /*Limit height for larger screens */
+    width: 90%;
+    /* Adjust to fit smaller screens */
+    max-width: 841px;
+    /*Limit width for larger screens */
+    height: 90vh;
+    /* Dynamic height based on viewport */
+    max-height: 850px;
+    /*Limit height for larger screens */
     margin: 20px auto;
     background-color: transparent;
     border: 2px solid #4caf50;
@@ -22,14 +26,16 @@ body {
     box-shadow: 0 4px 15px rgba(0, 255, 0, 0.4);
     overflow: hidden;
     display: none;
-    flex-direction: column; /* For better stacking */
+    flex-direction: column;
+    /* For better stacking */
     align-items: center;
 }
 
 /* Blur the game container when start button is visible */
 .blurred {
     filter: blur(8px);
-    pointer-events: none; /* Prevent interactions while blurred */
+    pointer-events: none;
+    /* Prevent interactions while blurred */
 }
 
 .bullet {
@@ -50,8 +56,10 @@ body {
 #enemy-formation {
     position: absolute;
     display: grid;
-    grid-gap: 5px; /* Add space between enemies */
-    justify-content: center; /* Center enemies */
+    grid-gap: 5px;
+    /* Add space between enemies */
+    justify-content: center;
+    /* Center enemies */
     width: auto;
     height: auto;
     top: 50px;
@@ -63,7 +71,7 @@ body {
 .enemy {
     width: 60px;
     height: 60px;
-    background-image: url('assets/images/enemy.png'); 
+    background-image: url('assets/images/enemy.png');
     background-size: cover;
     background-position: center;
     border-radius: 50%;
@@ -87,7 +95,7 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     display: none;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); 
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
     animation: fadeIn 0.5s ease-in-out;
 }
 
@@ -185,6 +193,17 @@ body {
     } */
 }
 
+@media (max-width: 480px) {
+    #start-button {
+        padding: 10px 20px;
+    }
+
+    .enemy {
+        width: 30px;
+        height: 30px;
+    }
+}
+
 
 #ui {
     /* Center content both vertically and horizontally */
@@ -198,12 +217,15 @@ body {
 }
 
 h1 {
-    font-family: 'Press Start 2P', monospace; /* Retro gaming font */
-    color: #0f0; /* Classic green text */
+    font-family: 'Press Start 2P', monospace;
+    /* Retro gaming font */
+    color: #0f0;
+    /* Classic green text */
     text-align: center;
     margin-bottom: 30px;
-    text-shadow: 0 0 10px #0f0; /* Glowing effect */
-    
+    text-shadow: 0 0 10px #0f0;
+    /* Glowing effect */
+
     /* Responsive font size */
     font-size: clamp(1.5rem, 5vw, 3rem);
 }
@@ -225,7 +247,7 @@ h1 {
 }
 
 /* Media queries for additional responsiveness */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
     #ui {
         padding: 10px;
     }
@@ -233,13 +255,8 @@ h1 {
     h1 {
         margin-bottom: 20px;
     }
-}
+} */
 
-@media (max-width: 480px) {
-    #start-button {
-        padding: 10px 20px;
-    }
-}
 
 
 #story {
@@ -315,7 +332,9 @@ h1 {
 }
 
 /* Styling for the individual elements */
-#score, #lives, #counter {
+#score,
+#lives,
+#counter {
     font-size: 1.2em;
     font-weight: bold;
     padding: 5px 10px;
@@ -326,7 +345,9 @@ h1 {
 }
 
 /* Add hover effects for a dynamic feel */
-#score:hover, #lives:hover, #counter:hover {
+#score:hover,
+#lives:hover,
+#counter:hover {
     background-color: #4caf50;
     color: black;
     transition: 0.3s ease;
@@ -350,4 +371,3 @@ h1 {
 #lives div {
     filter: invert(50%) sepia(100%) saturate(5000%) hue-rotate(0deg);
 }
-

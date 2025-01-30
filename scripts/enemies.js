@@ -27,8 +27,8 @@ function spawnEnemyFormation(rows, cols) {
         const enemy = document.createElement("div");
         enemy.className = "enemy";
         enemy.dataset.index = i; // Unique identifier for each enemy
-        enemy.style.width = "60px";
-        enemy.style.height = "60px";
+        // enemy.style.width = "60px";
+        // enemy.style.height = "60px";
         enemy.style.backgroundImage = "url('assets/images/inimi2.png')";
         enemy.style.backgroundSize = "cover";
         enemy.style.backgroundPosition = "center";
