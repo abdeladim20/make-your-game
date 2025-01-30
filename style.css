@@ -12,9 +12,9 @@ body {
 #game-container {
     position: relative;
     width: 90%; /* Adjust to fit smaller screens */
-    max-width: 800px; /* Limit width for larger screens */
+    /* max-width: 800px; Limit width for larger screens */
     height: 90vh; /* Dynamic height based on viewport */
-    max-height: 600px; /* Limit height for larger screens */
+     max-height: 850px; /*Limit height for larger screens */
     margin: 20px auto;
     background-color: transparent;
     border: 2px solid #4caf50;
@@ -122,7 +122,7 @@ body {
 @media (min-width: 1024px) {
     #game-container {
         width: 70%;
-        height: 600px;
+        height: 846px;
     }
 
     #start-button {
@@ -271,7 +271,7 @@ h1 {
     margin-bottom: 30px;
 }
 
-#story button {
+.btn {
     font-size: 1.2em;
     padding: 10px 20px;
     color: #0a0a0a;
@@ -283,7 +283,7 @@ h1 {
     transition: background 0.3s, transform 0.2s;
 }
 
-#story button:hover {
+.btn:hover {
     background: #2e7d32;
     transform: scale(1.1);
     color: #fff;
