@@ -7,18 +7,16 @@ body {
     background-image: url("assets/images/bg.png");
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
+    /* min-height: 100vh; Ensures full height */
 }
 
 #game-container {
     position: relative;
     width: 90%;
-    /* Adjust to fit smaller screens */
     max-width: 841px;
-    /*Limit width for larger screens */
     height: 80vh;
-    /* Dynamic height based on viewport */
     max-height: 80vh;
-    /*Limit height for larger screens */
     margin: 20px auto;
     background-color: transparent;
     border: 2px solid #4caf50;
@@ -27,7 +25,6 @@ body {
     overflow: hidden;
     display: none;
     flex-direction: column;
-    /* For better stacking */
     align-items: center;
 }
 

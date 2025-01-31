@@ -1,7 +1,7 @@
 let isPaused = false;
 let gameRunning = false;
 let req;
-let phase = 1;
+let phase = 2;
 
 function stopGameLoop() {
     gameRunning = false;
@@ -65,9 +65,6 @@ function pause() {
         // Stop any animations or intervals here
         document.body.classList.add('game-paused');
     } else {
-        // Resume animations or intervals here
-        // shoot = setInterval(enemyShootBullet, 400)
-        // animation = setInterval(changeEnemyApperance, 600)
         startEnemyActions();
         startTimer();
         document.body.classList.remove('game-paused');
@@ -86,43 +83,17 @@ function restart() {
     // Hide pause menu and reset pause state
     isPaused = false;
     cancelAnimationFrame(req)
+    document.getElementById("endGame").style.display = "none";
     document.getElementById("pause").style.display = "none";
     document.body.classList.remove("game-paused");
     game.classList.remove("blured");
     playerPosition = 375; // Reset player position to the initial spot
+    mothershiplives = 10;
     formationDirection = 1;
 
-
-    // Reset UI Elements
-    //document.getElementById("score").innerText = "Score: 0";
-    // let hearts = document.getElementById("lives").querySelectorAll("#heart")
-    // hearts.forEach(heart => {
-    //     console.log(heart)
-    //     heart.remove;
-    // });
     resetUI();
-    //livesvisual();
 
     game.innerHTML = `<div id="countdown"></div>`
-    // // Remove all existing enemies
-    // const enemiesContainer = document.getElementById("enemy-formation");
-    // if (enemiesContainer) enemiesContainer.remove();
-
-    // // Remove all bullets (enemy and player bullets)
-    // document.querySelectorAll(".bullet, .enemy-bullet").forEach(bullet => bullet.remove());
-    // enemyBullets = [];
-
-    // // Remove existing player before initializing game
-    // const existingPlayer = document.getElementById("player");
-    // if (existingPlayer) existingPlayer.remove();
-
-    // Clear all existing intervals to prevent speed stacking
-    // clearInterval(shoot);
-
-    // Ensure enemies spawn
-    // spawnEnemyFormation(3, 6); // Manually call this before initializeGame()
-
-    // Restart the game (this will spawn the player and reset any active intervals)
     phase = 1;
     countdownandinit();
 }

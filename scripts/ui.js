@@ -63,7 +63,7 @@ function updateScore(points) {
 
 
 function countdownandinit() {
-    let current = 1;
+    let current = 0;
 
     const countdownElement = document.getElementById('countdown');
 

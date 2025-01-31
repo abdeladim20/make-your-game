@@ -107,6 +107,10 @@ function checkBulletsMothership() {
             takeDamage(mothership);
             updateMSLives();
             if (mothershiplives == 0) {
+                mothership.style.backgroundImage = "url('assets/images/explo.gif'), url('assets/images/mothership.png')";
+                mothership.style.backgroundSize = "contain, cover"; 
+                mothership.style.backgroundPosition = "center, center";
+                mothership.style.backgroundRepeat = "no-repeat, no-repeat";
                 updateScore(300);
                 stopEnemyActions();
                 despawnEnemies();
