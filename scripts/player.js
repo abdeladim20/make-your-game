@@ -15,22 +15,29 @@ function spawnPlayer() {
 }
 
 function movePlayer() {
-    let image = "url('assets/images/player.png')"
+    let image = "url('assets/images/player.png')";
+    const gameContainer = document.getElementById("game-container");
+    const player = document.getElementById("player");
+
+    if (!gameContainer || !player) return;
+
+    const maxRight = gameContainer.clientWidth - player.clientWidth;
+
     if (keys["ArrowLeft"]) {
-        image = "url('assets/images/playerleft.png')"
+        image = "url('assets/images/playerleft.png')";
         playerPosition = Math.max(0, playerPosition - playerSpeed);
-    }
-    if (keys["ArrowRight"]) {
-        image = "url('assets/images/playerright.png')"
-        playerPosition = Math.min(781, playerPosition + playerSpeed);
-    }
-    if (keys[" "] && gameRunning && canShoot) {
-        shootBullet()
+    } else if (keys["ArrowRight"]) {
+        image = "url('assets/images/playerright.png')";
+        playerPosition = Math.min(maxRight, playerPosition + playerSpeed);
     }
 
-    const player = document.getElementById("player");
-    if (player) {
-        player.style.backgroundImage = image
-        player.style.left = `${playerPosition}px`;
+    if (keys[" "] && gameRunning && canShoot) {
+        shootBullet();
     }
+
+    if (player.style.backgroundImage !== image) {
+        player.style.backgroundImage = image;
+    }
+    player.style.left = `${playerPosition}px`;
 }
+

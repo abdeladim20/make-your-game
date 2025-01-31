@@ -74,8 +74,6 @@ function pause() {
 function resume() {
     if (isPaused) {
         pause();
-        // stopEnemyActions();
-        // stopTimer();
     }
 }
 

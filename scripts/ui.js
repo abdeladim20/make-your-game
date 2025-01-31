@@ -30,6 +30,7 @@ function livesvisual() {
 
 function MSlivesvisual() {
     let livesdiv = document.getElementById("mothershiphp");
+    livesdiv.innerHTML = "";
     livesdiv.style.width = `${10 * 20}px`; // Adjust based on enemy width
     livesdiv.style.height = `${1 * 20}px`; // Adjust based on enemy height
     livesdiv.style.display = "grid";
