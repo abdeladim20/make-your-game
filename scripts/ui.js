@@ -9,6 +9,7 @@ function updateUI() {
 }
 
 function livesvisual() {
+    lives = 3;
     let livesdiv = document.getElementById("lives");
     livesdiv.innerHTML = "";
     livesdiv.style.width = `${3 * 20}px`; // Adjust based on enemy width
@@ -89,8 +90,8 @@ function countdownandinit() {
 function startTimer(reset) {
     const counterDisplay = document.getElementById("counter");
 
-    if (timer) clearInterval(timer); // Prevent multiple timers from running
-    timeLeft = 60; // Reset time
+    if (timer) clearInterval(timer);
+    if (reset) timeLeft = 60; // Reset time
 
     timer = setInterval(() => {
         let minutes = Math.floor(timeLeft / 60);

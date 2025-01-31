@@ -1,7 +1,7 @@
 let isPaused = false;
 let gameRunning = false;
 let req;
-let phase = 2;
+let phase = 1;
 
 function stopGameLoop() {
     gameRunning = false;
@@ -18,30 +18,21 @@ function initializeGame1() {
     spawnPlayer();
     gameLoop();
     startEnemyActions();
-    startTimer();
+    startTimer(true);
 }
 
 function initializeGame2() {
     gameRunning = true;
     isPaused = false;
-    game.style.display = "flex"
+    game.style.display = "flex";
+    livesvisual();
     MSlivesvisual();
     document.getElementById("board").style.display = "flex";
     spawnMotherShip();
     spawnPlayer();
     startEnemyActions();
-    startTimer();
+    startTimer(true);
     gameLoop();
-}
-
-
-function checkGameOver() {
-    const enemiesContainer = document.getElementById("enemy-formation");
-    const allEnemies = enemiesContainer.querySelectorAll(".enemy");
-    const allKilled = Array.from(allEnemies).every(enemy => enemy.classList.contains("killed"))
-    if (allKilled) {
-        endGame();
-    }
 }
 
 function pause() {

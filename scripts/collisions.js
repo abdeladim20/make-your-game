@@ -50,6 +50,8 @@ function checkBulletCollisions() {
                 // Check if all enemies are killed
                 if (enemiesContainer.querySelectorAll(".enemy:not(.killed)").length === 0 && phase == 1)  {
                     stopEnemyActions()
+                    gameRunning = false;
+                    isPaused = true;
                     setTimeout(() => {
                         game.innerHTML = '<div id="countdown"></div>';
                         game.style.display= "none"
@@ -112,6 +114,8 @@ function checkBulletsMothership() {
                 mothership.style.backgroundPosition = "center, center";
                 mothership.style.backgroundRepeat = "no-repeat, no-repeat";
                 updateScore(300);
+                gameRunning = false;
+                isPaused = true;
                 stopEnemyActions();
                 despawnEnemies();
                 setTimeout(() => {
@@ -140,7 +144,7 @@ function endGame() {
     clearInterval(enemyshooting);
     cancelAnimationFrame(req);
     end.style.display = "block";
-    end.appendChild(s)
+    document.getElementById("scoreres").textContent = `Score: ${score}`;
     game.classList.add("blured")
 }
 
