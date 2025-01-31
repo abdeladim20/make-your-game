@@ -1,7 +1,7 @@
 let isPaused = false;
 let gameRunning = false;
 let req;
-let phase = 2;
+let phase = 1;
 
 function stopGameLoop() {
     gameRunning = false;
@@ -94,20 +94,27 @@ function restart() {
 
 
     // Reset UI Elements
-    document.getElementById("score").innerText = "Score: 0";
-    document.getElementById("lives").innerText = "Lives: 3";
+    //document.getElementById("score").innerText = "Score: 0";
+    // let hearts = document.getElementById("lives").querySelectorAll("#heart")
+    // hearts.forEach(heart => {
+    //     console.log(heart)
+    //     heart.remove;
+    // });
+    resetUI();
+    //livesvisual();
 
-    // Remove all existing enemies
-    const enemiesContainer = document.getElementById("enemy-formation");
-    if (enemiesContainer) enemiesContainer.remove();
+    game.innerHTML = `<div id="countdown"></div>`
+    // // Remove all existing enemies
+    // const enemiesContainer = document.getElementById("enemy-formation");
+    // if (enemiesContainer) enemiesContainer.remove();
 
-    // Remove all bullets (enemy and player bullets)
-    document.querySelectorAll(".bullet, .enemy-bullet").forEach(bullet => bullet.remove());
-    enemyBullets = [];
+    // // Remove all bullets (enemy and player bullets)
+    // document.querySelectorAll(".bullet, .enemy-bullet").forEach(bullet => bullet.remove());
+    // enemyBullets = [];
 
-    // Remove existing player before initializing game
-    const existingPlayer = document.getElementById("player");
-    if (existingPlayer) existingPlayer.remove();
+    // // Remove existing player before initializing game
+    // const existingPlayer = document.getElementById("player");
+    // if (existingPlayer) existingPlayer.remove();
 
     // Clear all existing intervals to prevent speed stacking
     // clearInterval(shoot);
@@ -116,7 +123,8 @@ function restart() {
     // spawnEnemyFormation(3, 6); // Manually call this before initializeGame()
 
     // Restart the game (this will spawn the player and reset any active intervals)
-    initializeGame1()
+    phase = 1;
+    countdownandinit();
 }
 
 function gameLoop() {
@@ -162,9 +170,13 @@ document.getElementById("next").addEventListener("click", () => {
 });
 
 document.getElementById("retry").addEventListener("click", () => {
-    location.reload();
+    restart();
 });
 
 document.getElementById("again").addEventListener("click", () => {
-    location.reload();
+    document.querySelectorAll(".late").forEach(element => {
+        element.style.display = "none";
+    });
+    document.getElementById("game-container").style.display = "flex";
+    restart();
 });

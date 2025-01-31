@@ -15,9 +15,9 @@ body {
     /* Adjust to fit smaller screens */
     max-width: 841px;
     /*Limit width for larger screens */
-    height: 90vh;
+    height: 80vh;
     /* Dynamic height based on viewport */
-    max-height: 850px;
+    max-height: 80vh;
     /*Limit height for larger screens */
     margin: 20px auto;
     background-color: transparent;

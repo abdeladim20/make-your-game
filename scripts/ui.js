@@ -10,6 +10,7 @@ function updateUI() {
 
 function livesvisual() {
     let livesdiv = document.getElementById("lives");
+    livesdiv.innerHTML = "";
     livesdiv.style.width = `${3 * 20}px`; // Adjust based on enemy width
     livesdiv.style.height = `${1 * 20}px`; // Adjust based on enemy height
     livesdiv.style.display = "grid";
