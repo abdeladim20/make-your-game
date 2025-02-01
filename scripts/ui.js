@@ -74,7 +74,7 @@ function countdownandinit() {
 
         if (current === 0) {
             countdownElement.style.display = "none";
-            clearInterval(interval); // Stop the countdown
+            clearInterval(interval);
             if (phase == 1) {
                 initializeGame1();
             } else {

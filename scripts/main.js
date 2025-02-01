@@ -41,17 +41,6 @@ function pause() {
     stopTimer();
     isPaused = !isPaused;
     paused.style.display = isPaused ? "flex" : "none";
-    const enemiesContainer = document.getElementById("enemy-formation");
-    const allEnemies = enemiesContainer.querySelectorAll(".enemy");
-    Array.from(allEnemies).forEach(element => {
-        if (isPaused) {
-            element.classList.add("paused");
-            game.classList.add("blured")
-        } else {
-            game.classList.remove("blured")
-            element.classList.remove("paused");
-        }
-    });
     if (isPaused) {
         document.body.classList.add('game-paused');
     } else {

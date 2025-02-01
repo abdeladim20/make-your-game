@@ -37,10 +37,10 @@ function checkBulletCollisions() {
 
                     setTimeout(() => {
                         enemy.style.backgroundImage = "url('assets/images/explo2.png')";
-                    }, 300);
+                    }, 200);
                     setTimeout(() => {
                         enemy.style.backgroundImage = "none";
-                    }, 600); // Adjusted timing for proper animation
+                    }, 300); // Adjusted timing for proper animation
 
                     // Remove the bullet safely
                     bullet.element.remove();
@@ -78,6 +78,7 @@ function checkBulletCollisions() {
                 game.style.display = "none";
                 document.getElementById("board").style.display = "none";
                 stopGameLoop();
+                stopTimer();
                 phase = 2;
                 document.querySelectorAll(".mid").forEach(element => {
                     element.style.display = "block";
