@@ -34,16 +34,6 @@ function checkBulletCollisions() {
                     // Mark enemy as killed
                     enemy.classList.add("killed");
                     enemy.style.backgroundImage = "url('assets/images/explo1.png')";
-                // Check if bullet intersects with enemy
-                if (
-                    bulletRect.left < enemyRect.right &&
-                    bulletRect.right > enemyRect.left &&
-                    bulletRect.top < enemyRect.bottom &&
-                    bulletRect.bottom > enemyRect.top
-                ) {
-                    // Mark enemy as killed
-                    enemy.classList.add("killed");
-                    enemy.style.backgroundImage = "url('assets/images/explo1.png')";
 
                     setTimeout(() => {
                         enemy.style.backgroundImage = "url('assets/images/explo2.png')";
@@ -62,10 +52,6 @@ function checkBulletCollisions() {
             });
         }
 
-        // Check for collision between enemies and player
-        const enemyElements = enemiesContainer.querySelectorAll(".enemy:not(.killed)");
-        enemyElements.forEach((enemy) => {
-            const enemyRect = enemy.getBoundingClientRect();
         // Check for collision between enemies and player
         const enemyElements = enemiesContainer.querySelectorAll(".enemy:not(.killed)");
         enemyElements.forEach((enemy) => {
@@ -102,6 +88,7 @@ function checkBulletCollisions() {
 }
 
 
+
 function checkBulletsMothership() {
     const player = document.getElementById("player");
     const mothership = document.getElementById("mothership");
@@ -131,7 +118,7 @@ function checkBulletsMothership() {
             if (mothershiplives === 0) {
                 // Explosion effect
                 mothership.style.backgroundImage = "url('assets/images/explo.gif'), url('assets/images/mothership.png')";
-                mothership.style.backgroundSize = "contain, cover";
+                mothership.style.backgroundSize = "contain, cover"; 
                 mothership.style.backgroundPosition = "center, center";
                 mothership.style.backgroundRepeat = "no-repeat, no-repeat";
 
@@ -140,7 +127,6 @@ function checkBulletsMothership() {
                 isPaused = true;
                 stopEnemyActions();
                 despawnEnemies();
-                startTimer();
 
                 setTimeout(() => {
                     stopGameLoop();
@@ -149,8 +135,6 @@ function checkBulletsMothership() {
                     game.style.display = "none";
                     document.getElementById("board").style.display = "none";
                     document.querySelectorAll(".late").forEach(element => {
-                        element.style.display = "block";
-                    });
                         element.style.display = "block";
                     });
                 }, 1500);
