@@ -89,9 +89,11 @@ function countdownandinit() {
 
 function startTimer(reset) {
     const counterDisplay = document.getElementById("counter");
-
     if (timer) clearInterval(timer);
-    if (reset) timeLeft = 60; // Reset time
+    if (reset) {
+        counterDisplay.textContent = "Counter: 1:00";
+        timeLeft = 60; // Reset time
+    }
 
     timer = setInterval(() => {
         let minutes = Math.floor(timeLeft / 60);

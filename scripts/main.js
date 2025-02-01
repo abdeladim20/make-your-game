@@ -74,6 +74,7 @@ function restart() {
     cancelAnimationFrame(req)
     document.getElementById("endGame").style.display = "none";
     document.getElementById("pause").style.display = "none";
+    document.getElementById("mothershiphp").style.display = "none";
     document.body.classList.remove("game-paused");
     game.classList.remove("blured");
     playerPosition = 375; // Reset player position to the initial spot
