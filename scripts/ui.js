@@ -91,7 +91,7 @@ function startTimer(reset) {
     if (timer) clearInterval(timer);
     if (reset) {
         counterDisplay.textContent = "Counter: 1:00";
-        timeLeft = 60; // Reset time
+        timeLeft = 59;
     }
 
     timer = setInterval(() => {

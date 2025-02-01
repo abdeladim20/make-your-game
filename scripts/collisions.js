@@ -127,6 +127,7 @@ function checkBulletsMothership() {
                 isPaused = true;
                 stopEnemyActions();
                 despawnEnemies();
+                stopTimer();
 
                 setTimeout(() => {
                     stopGameLoop();
