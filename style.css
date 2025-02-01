@@ -244,6 +244,21 @@ h1 {
     transform: scale(1.1);
 }
 
+@keyframes heartbeat {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+#heart {
+    animation: heartbeat 500ms cubic-bezier(.75, -3, .25, .4) infinite;
+}
 /* Media queries for additional responsiveness */
 /* @media (max-width: 768px) {
     #ui {

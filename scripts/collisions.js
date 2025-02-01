@@ -145,7 +145,7 @@ function endGame() {
     cancelAnimationFrame(req);
     end.style.display = "block";
     document.getElementById("scoreres").textContent = `Score: ${score}`;
-    game.classList.add("blured")
+    game.classList.add("blured");
 }
 
 function shootBullet() {
