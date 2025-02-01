@@ -13,80 +13,76 @@ function checkBulletCollisions() {
 
     const playerRect = player.getBoundingClientRect();
     formations.forEach((enemiesContainer) => {
-    // Check collisions between bullets and enemies
-    bullets.forEach((bullet, bulletIndex) => {
-        const bulletRect = bullet.element.getBoundingClientRect();
+        bullets.forEach((bullet, bulletIndex) => {
+            const bulletRect = bullet.element.getBoundingClientRect();
+            const enemyElements = enemiesContainer.querySelectorAll(".enemy:not(.killed)");
+            enemyElements.forEach((enemy) => {
+                const enemyRect = enemy.getBoundingClientRect();
 
-        // Check each enemy within the formation
+                // Check if bullet intersects with enemy
+                if (
+                    bulletRect.left < enemyRect.right &&
+                    bulletRect.right > enemyRect.left &&
+                    bulletRect.top < enemyRect.bottom &&
+                    bulletRect.bottom > enemyRect.top
+                ) {
+                    // Mark enemy as killed
+                    enemy.classList.add("killed");
+                    enemy.style.backgroundImage = "url('assets/images/explo1.png')";
+
+                    setTimeout(() => {
+                        enemy.style.backgroundImage = "url('assets/images/explo2.png')";
+                    }, 300)
+                    setTimeout(() => {
+                        enemy.style.backgroundImage = "none";
+                    }, 300)
+
+                    // Remove the bullet
+                    bullet.element.remove();
+                    bullets.splice(bulletIndex, 1);
+
+                    updateScore(10);
+
+                    // Check if all enemies are killed
+                    if (enemiesContainer.querySelectorAll(".enemy:not(.killed)").length === 0 && phase == 1) {
+                        stopEnemyActions()
+                        gameRunning = false;
+                        isPaused = true;
+                        setTimeout(() => {
+                            game.innerHTML = '<div id="countdown"></div>';
+                            game.style.display = "none"
+                            document.getElementById("board").style.display = "none";
+                            stopGameLoop()
+                            phase = 2;
+                            document.querySelectorAll(".mid").forEach(element => {
+                                element.style.display = "block";
+                            });
+                        }, 700);
+                    }
+                }
+            });
+        });
+
+        // Check for collision between enemies and player
         const enemyElements = enemiesContainer.querySelectorAll(".enemy:not(.killed)");
         enemyElements.forEach((enemy) => {
             const enemyRect = enemy.getBoundingClientRect();
 
-            // Check if bullet intersects with enemy
             if (
-                bulletRect.left < enemyRect.right &&
-                bulletRect.right > enemyRect.left &&
-                bulletRect.top < enemyRect.bottom &&
-                bulletRect.bottom > enemyRect.top
+                playerRect.left < enemyRect.right &&
+                playerRect.right > enemyRect.left &&
+                playerRect.top < enemyRect.bottom &&
+                playerRect.bottom > enemyRect.top
             ) {
-                // Mark enemy as killed
-                enemy.classList.add("killed");
-                enemy.style.backgroundImage = "url('assets/images/explo1.png')";
-
-                setTimeout(() => {
-                    enemy.style.backgroundImage = "url('assets/images/explo2.png')";
-                }, 300)
-                setTimeout(() => {
-                    enemy.style.backgroundImage = "none";
-                }, 300)
-
-                // Remove the bullet
-                bullet.element.remove();
-                bullets.splice(bulletIndex, 1);
-
-                // Update score
-                updateScore(10);
-
-                // Check if all enemies are killed
-                if (enemiesContainer.querySelectorAll(".enemy:not(.killed)").length === 0 && phase == 1)  {
-                    stopEnemyActions()
-                    gameRunning = false;
-                    isPaused = true;
-                    setTimeout(() => {
-                        game.innerHTML = '<div id="countdown"></div>';
-                        game.style.display= "none"
-                        document.getElementById("board").style.display = "none";
-                        stopGameLoop()
-                        phase = 2;
-                        document.querySelectorAll(".mid").forEach(element => {
-                            element.style.display = "block";
-                        });
-                    }, 700);
-                }
+                // End the game if enemy collides with the player
+                endGame();
+            }
+            if (playerRect.top < enemyRect.bottom &&
+                playerRect.bottom > enemyRect.top && phase == 1) {
+                endGame();
             }
         });
     });
-
-    // Check for collision between enemies and player
-    const enemyElements = enemiesContainer.querySelectorAll(".enemy:not(.killed)");
-    enemyElements.forEach((enemy) => {
-        const enemyRect = enemy.getBoundingClientRect();
-
-        if (
-            playerRect.left < enemyRect.right &&
-            playerRect.right > enemyRect.left &&
-            playerRect.top < enemyRect.bottom &&
-            playerRect.bottom > enemyRect.top
-        ) {
-            // End the game if enemy collides with the player
-            endGame();
-        }
-        if ( playerRect.top < enemyRect.bottom &&
-            playerRect.bottom > enemyRect.top && phase == 1) {
-                endGame();
-            }
-    });
- });
 }
 
 function checkBulletsMothership() {
@@ -110,7 +106,7 @@ function checkBulletsMothership() {
             updateMSLives();
             if (mothershiplives == 0) {
                 mothership.style.backgroundImage = "url('assets/images/explo.gif'), url('assets/images/mothership.png')";
-                mothership.style.backgroundSize = "contain, cover"; 
+                mothership.style.backgroundSize = "contain, cover";
                 mothership.style.backgroundPosition = "center, center";
                 mothership.style.backgroundRepeat = "no-repeat, no-repeat";
                 updateScore(300);
@@ -122,16 +118,17 @@ function checkBulletsMothership() {
                     stopGameLoop();
                     document.getElementById("mothershiphp").style.display = "none";
                     stopTimer();
-                    game.style.display= "none"
+                    game.style.display = "none"
                     document.getElementById("board").style.display = "none";
                     document.querySelectorAll(".late").forEach(element => {
-                       element.style.display = "block";
-                   });
+                        element.style.display = "block";
+                    });
                 }, 1500);
             }
-        }})
+        }
+    })
 
-} 
+}
 
 
 function endGame() {
@@ -150,14 +147,14 @@ function endGame() {
 
 function shootBullet() {
     const player = document.getElementById("player");
-    if (!player||!canShoot) return;
+    if (!player || !canShoot) return;
     canShoot = false;
     const bullet = document.createElement("div");
     bullet.className = "bullet";
     bullet.style.position = "absolute";
     bullet.style.width = "5px";
     bullet.style.height = "10px";
-    bullet.style.left = `${playerPosition + 22.5}px`; 
+    bullet.style.left = `${playerPosition + 22.5}px`;
     bullet.style.bottom = "70px";
 
     document.getElementById("game-container").appendChild(bullet);

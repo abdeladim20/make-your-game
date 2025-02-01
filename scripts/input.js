@@ -3,7 +3,7 @@ const keys = {};
 document.addEventListener("keydown", (event) => {
     keys[event.key] = true;
     if (event.key == "p" && gameRunning == true) {
-       pause();
+        pause();
     }
 })
 
@@ -18,7 +18,6 @@ document.addEventListener("keyup", (event) => {
 document.addEventListener("keydown", (event) => {
     keys[event.key] = true;
 
-    // Shoot on Spacebar press
     if (event.key === " " && gameRunning && canShoot) {
         shootBullet()
     }

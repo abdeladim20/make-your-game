@@ -53,7 +53,6 @@ function pause() {
         }
     });
     if (isPaused) {
-        // Stop any animations or intervals here
         document.body.classList.add('game-paused');
     } else {
         startEnemyActions();
@@ -69,14 +68,13 @@ function resume() {
 }
 
 function restart() {
-    // Hide pause menu and reset pause state
     isPaused = false;
     cancelAnimationFrame(req)
     document.getElementById("endGame").style.display = "none";
     document.getElementById("pause").style.display = "none";
     document.body.classList.remove("game-paused");
     game.classList.remove("blured");
-    playerPosition = 375; // Reset player position to the initial spot
+    playerPosition = 375;
     mothershiplives = 10;
     formationDirection = 1;
 
@@ -107,7 +105,7 @@ function gameLoop() {
 
 
 document.getElementById("start-button").addEventListener("click", () => {
-    document.getElementById("ui").style.display = "none"; // Hide the start button
+    document.getElementById("ui").style.display = "none";
     document.querySelectorAll(".early").forEach(element => {
         element.style.display = "block";
     });
@@ -118,7 +116,7 @@ document.getElementById("begin").addEventListener("click", () => {
         element.style.display = "none";
     });
     document.getElementById("game-container").style.display = "flex";
-    countdownandinit(); // Start the game
+    countdownandinit();
 });
 
 document.getElementById("next").addEventListener("click", () => {

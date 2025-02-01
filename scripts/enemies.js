@@ -199,7 +199,7 @@ function spawnMotherShip() {
     // Create the formation container
     MotherShip = document.createElement("div");
     MotherShip.id = "mothership";
-    MotherShip.style.top = "10px"; // Initial position
+    MotherShip.style.top = "10px";
     MotherShip.style.left = "50px";
     MotherShip.style.position = "absolute";
     MotherShip.style.height = "80px";
@@ -260,7 +260,7 @@ function mothershipSpawnEnemies() {
     formation.id = "enemy-formation";
     formation.style.position = "absolute";
     formation.style.margin = "0";
-    formation.style.width = `150px`; // Adjust based on formation size
+    formation.style.width = `150px`;
     formation.style.height = `50px`;
     formation.style.display = "grid";
     formation.style.gridTemplateColumns = "repeat(3, 1fr)"; // Three enemies per row
