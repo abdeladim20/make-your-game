@@ -1,8 +1,8 @@
 let score = 0;
 let lives = 3;
 let mothershiplives = 10;
-let timer; // Store the interval globally
-let timeLeft = 60; // Start at 60 seconds
+let timer;
+let timeLeft = 60;
 
 function updateUI() {
     document.getElementById("score").textContent = `Score: ${score}`;
@@ -32,8 +32,8 @@ function livesvisual() {
 function MSlivesvisual() {
     let livesdiv = document.getElementById("mothershiphp");
     livesdiv.innerHTML = "";
-    livesdiv.style.width = `${10 * 20}px`; // Adjust based on enemy width
-    livesdiv.style.height = `${1 * 20}px`; // Adjust based on enemy height
+    livesdiv.style.width = `${10 * 20}px`;
+    livesdiv.style.height = `${1 * 20}px`;
     livesdiv.style.display = "grid";
     livesdiv.style.gridTemplateColumns = `repeat(${10}, 1fr)`;
     livesdiv.style.display = `flex`;
@@ -66,18 +66,17 @@ function updateScore(points) {
 
 function countdownandinit() {
     let current = 0;
-
     const countdownElement = document.getElementById('countdown');
 
-    // Function to update the countdown
+    // update the countdown
     const interval = setInterval(() => {
         countdownElement.textContent = current;
 
         if (current === 0) {
-            countdownElement.style.display = "none"; 
+            countdownElement.style.display = "none";
             clearInterval(interval); // Stop the countdown
             if (phase == 1) {
-                initializeGame1(); // Execute the provided function
+                initializeGame1();
             } else {
                 initializeGame2();
             }
@@ -112,7 +111,7 @@ function startTimer(reset) {
     }, 1000);
 }
 
-// Function to stop the timer manually
+// stop the timer manually
 function stopTimer() {
     clearInterval(timer);
 }

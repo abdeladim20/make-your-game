@@ -9,7 +9,6 @@ body {
     background-position: center;
     background-attachment: fixed;
     background-repeat: no-repeat;
-    /* min-height: 100vh; Ensures full height */
 }
 
 #game-container {
@@ -29,11 +28,9 @@ body {
     align-items: center;
 }
 
-/* Blur the game container when start button is visible */
 .blurred {
     filter: blur(8px);
     pointer-events: none;
-    /* Prevent interactions while blurred */
 }
 
 .bullet {
@@ -55,9 +52,7 @@ body {
     position: absolute;
     display: grid;
     grid-gap: 5px;
-    /* Add space between enemies */
     justify-content: center;
-    /* Center enemies */
     width: auto;
     height: auto;
     top: 50px;
@@ -75,7 +70,6 @@ body {
     border-radius: 50%;
 }
 
-/* Styling for the endGame popup */
 #endGame {
     background-color: rgba(0, 0, 0, 0.8);
     color: white;
@@ -124,7 +118,6 @@ body {
     animation-play-state: paused;
 }
 
-/* Large screens (desktops/laptops) */
 @media (min-width: 1024px) {
     #game-container {
         width: 70%;
@@ -141,7 +134,6 @@ body {
     } */
 }
 
-/* Tablets (768px - 1023px) */
 @media (min-width: 768px) and (max-width: 1023px) {
     #game-container {
         width: 85%;
@@ -158,7 +150,6 @@ body {
     } */
 }
 
-/* Mobile devices (up to 767px) */
 @media (max-width: 767px) {
     #game-container {
         width: 100%;
@@ -204,7 +195,6 @@ body {
 
 
 #ui {
-    /* Center content both vertically and horizontally */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -216,15 +206,10 @@ body {
 
 h1 {
     font-family: 'Press Start 2P', monospace;
-    /* Retro gaming font */
     color: #0f0;
-    /* Classic green text */
     text-align: center;
     margin-bottom: 30px;
     text-shadow: 0 0 10px #0f0;
-    /* Glowing effect */
-
-    /* Responsive font size */
     font-size: clamp(1.5rem, 5vw, 3rem);
 }
 
@@ -242,6 +227,24 @@ h1 {
     background-color: #0f0;
     color: #000;
     transform: scale(1.1);
+}
+
+@keyframes heartbeat {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+#heart {
+    animation: heartbeat 500ms cubic-bezier(.75, -3, .25, .4) infinite;
 }
 
 /* Media queries for additional responsiveness */
@@ -311,7 +314,6 @@ h1 {
     color: white;
 }
 
-/* Styling for the board container */
 #board {
     display: none;
     justify-content: space-between;
@@ -329,7 +331,6 @@ h1 {
     margin-top: 0;
 }
 
-/* Styling for the individual elements */
 #score,
 #lives,
 #counter {
@@ -342,7 +343,6 @@ h1 {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
-/* Add hover effects for a dynamic feel */
 #score:hover,
 #lives:hover,
 #counter:hover {
@@ -358,11 +358,9 @@ h1 {
     overflow: hidden;
     position: relative;
     padding: 5px 10px;
-    /* Center horizontally */
     margin-top: 0;
     margin-bottom: 2px;
     margin: 0 auto;
-    /* justify-content: space-between; */
     align-items: center;
 }
 

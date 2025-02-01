@@ -34,6 +34,16 @@ function checkBulletCollisions() {
                     // Mark enemy as killed
                     enemy.classList.add("killed");
                     enemy.style.backgroundImage = "url('assets/images/explo1.png')";
+                // Check if bullet intersects with enemy
+                if (
+                    bulletRect.left < enemyRect.right &&
+                    bulletRect.right > enemyRect.left &&
+                    bulletRect.top < enemyRect.bottom &&
+                    bulletRect.bottom > enemyRect.top
+                ) {
+                    // Mark enemy as killed
+                    enemy.classList.add("killed");
+                    enemy.style.backgroundImage = "url('assets/images/explo1.png')";
 
                     setTimeout(() => {
                         enemy.style.backgroundImage = "url('assets/images/explo2.png')";
@@ -52,6 +62,10 @@ function checkBulletCollisions() {
             });
         }
 
+        // Check for collision between enemies and player
+        const enemyElements = enemiesContainer.querySelectorAll(".enemy:not(.killed)");
+        enemyElements.forEach((enemy) => {
+            const enemyRect = enemy.getBoundingClientRect();
         // Check for collision between enemies and player
         const enemyElements = enemiesContainer.querySelectorAll(".enemy:not(.killed)");
         enemyElements.forEach((enemy) => {
@@ -117,7 +131,7 @@ function checkBulletsMothership() {
             if (mothershiplives === 0) {
                 // Explosion effect
                 mothership.style.backgroundImage = "url('assets/images/explo.gif'), url('assets/images/mothership.png')";
-                mothership.style.backgroundSize = "contain, cover"; 
+                mothership.style.backgroundSize = "contain, cover";
                 mothership.style.backgroundPosition = "center, center";
                 mothership.style.backgroundRepeat = "no-repeat, no-repeat";
 
@@ -137,6 +151,8 @@ function checkBulletsMothership() {
                     document.querySelectorAll(".late").forEach(element => {
                         element.style.display = "block";
                     });
+                        element.style.display = "block";
+                    });
                 }, 1500);
             }
         }
@@ -154,19 +170,19 @@ function endGame() {
     cancelAnimationFrame(req);
     end.style.display = "block";
     document.getElementById("scoreres").textContent = `Score: ${score}`;
-    game.classList.add("blured")
+    game.classList.add("blured");
 }
 
 function shootBullet() {
     const player = document.getElementById("player");
-    if (!player||!canShoot) return;
+    if (!player || !canShoot) return;
     canShoot = false;
     const bullet = document.createElement("div");
     bullet.className = "bullet";
     bullet.style.position = "absolute";
     bullet.style.width = "5px";
     bullet.style.height = "10px";
-    bullet.style.left = `${playerPosition + 22.5}px`; 
+    bullet.style.left = `${playerPosition + 22.5}px`;
     bullet.style.bottom = "70px";
 
     document.getElementById("game-container").appendChild(bullet);
