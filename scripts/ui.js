@@ -90,7 +90,7 @@ function startTimer(reset) {
     const counterDisplay = document.getElementById("counter");
     if (timer) clearInterval(timer);
     if (reset) {
-        counterDisplay.textContent = "Counter: 1:00";
+        counterDisplay.textContent = "1:00";
         timeLeft = 59;
     }
 
@@ -99,11 +99,11 @@ function startTimer(reset) {
         let seconds = timeLeft % 60;
         seconds = seconds < 10 ? "0" + seconds : seconds; // Format seconds
 
-        counterDisplay.textContent = `Counter: ${minutes}:${seconds}`;
+        counterDisplay.textContent = `${minutes}:${seconds}`;
 
         if (timeLeft <= 0) {
             clearInterval(timer);
-            counterDisplay.textContent = "Counter: 0:00";
+            counterDisplay.textContent = "0:00";
             endGame();
         }
 
