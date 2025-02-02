@@ -64,10 +64,10 @@ body {
 
 .bullet {
     position: absolute;
-    width: 1px;
-    height: 1px;
+    width: 3px;
+    height: 8px;
     background-color: yellow;
-    border: 0.5px solid orange;
+    border: 1px solid orange;
     border-radius: 2px;
 }
 

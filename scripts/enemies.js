@@ -16,7 +16,7 @@ function spawnEnemyFormation(rows, cols) {
     formation.style.position = "absolute";
     formation.style.margin = "0";
     formation.style.top = "5px"; // Initial position
-    formation.style.left = "50px";
+    formation.style.left = "0px";
     formation.style.width = `${cols * 50}px`; // Adjust based on enemy width
     formation.style.height = `${rows * 50}px`; // Adjust based on enemy height
     formation.style.display = "grid";
@@ -26,9 +26,7 @@ function spawnEnemyFormation(rows, cols) {
     for (let i = 0; i < rows * cols; i++) {
         const enemy = document.createElement("div");
         enemy.className = "enemy";
-        enemy.dataset.index = i; // Unique identifier for each enemy
-        // enemy.style.width = "60px";
-        // enemy.style.height = "60px";
+        enemy.dataset.index = i;
         enemy.style.backgroundImage = "url('assets/images/inimi2.png')";
         enemy.style.backgroundSize = "cover";
         enemy.style.backgroundPosition = "center";

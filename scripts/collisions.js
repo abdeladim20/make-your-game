@@ -80,6 +80,7 @@ function checkBulletCollisions() {
                 stopGameLoop();
                 stopTimer();
                 phase = 2;
+                playerPosition = 375;
                 document.querySelectorAll(".mid").forEach(element => {
                     element.style.display = "block";
                 });
@@ -98,7 +99,6 @@ function checkBulletsMothership() {
     
     const shipRec = mothership.getBoundingClientRect();
 
-    // Iterate over bullets in reverse order to prevent index shifting issues
     for (let i = bullets.length - 1; i >= 0; i--) {
         const bullet = bullets[i];
         const bulletRect = bullet.element.getBoundingClientRect();
@@ -157,26 +157,6 @@ function endGame() {
     end.style.display = "block";
     document.getElementById("scoreres").textContent = `Score: ${score}`;
     game.classList.add("blured");
-}
-
-function shootBullet() {
-    const player = document.getElementById("player");
-    if (!player || !canShoot) return;
-    canShoot = false;
-    const bullet = document.createElement("div");
-    bullet.className = "bullet";
-    bullet.style.position = "absolute";
-    bullet.style.width = "5px";
-    bullet.style.height = "10px";
-    bullet.style.left = `${playerPosition + 22.5}px`;
-    bullet.style.bottom = "70px";
-
-    document.getElementById("game-container").appendChild(bullet);
-
-    bullets.push({ element: bullet, y: 70 });
-    setTimeout(() => {
-        canShoot = true;
-    }, 300);
 }
 
 function moveEntities() {

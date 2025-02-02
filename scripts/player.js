@@ -41,3 +41,20 @@ function movePlayer() {
     player.style.left = `${playerPosition}px`;
 }
 
+function shootBullet() {
+    const player = document.getElementById("player");
+    if (!player || !canShoot) return;
+    canShoot = false;
+    const bullet = document.createElement("div");
+    bullet.className = "bullet";
+    bullet.style.position = "absolute";
+    bullet.style.left = `${playerPosition + 22.5}px`;
+    bullet.style.bottom = "70px";
+
+    document.getElementById("game-container").appendChild(bullet);
+
+    bullets.push({ element: bullet, y: 70 });
+    setTimeout(() => {
+        canShoot = true;
+    }, 300);
+}
