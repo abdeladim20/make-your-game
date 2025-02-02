@@ -32,6 +32,31 @@ body {
     align-items: center;
 }
 
+#board {
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    width: 70%; /* Adjusted for better responsiveness */
+    max-width: 841px;
+    margin: 10px auto;
+    padding: 8px 16px;
+    backdrop-filter: blur(4px);
+    border: 2px solid #4caf50;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 255, 0, 0.4);
+    font-family: "Press Start 2P", cursive;
+    color: white;
+    margin-top: 0;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* Ensure text adjusts properly */
+#board div {
+    flex: 1;
+    text-align: center;
+}
+
 .blurred {
     filter: blur(8px);
     pointer-events: none;
@@ -70,7 +95,6 @@ body {
 .enemy {
     width: 60px;
     height: 60px;
-    background-image: url('assets/images/enemy.png');
     background-size: cover;
     background-position: center;
     border-radius: 50%;
@@ -211,6 +235,15 @@ body {
     #start-button {
         padding: 10px 20px;
     }
+    #board {
+        width: 95%;
+        padding: 12px;
+        font-size: 12px;
+    }
+
+    #board div {
+        margin-bottom: 5px; /* Space between stacked items */
+    }
 
     .enemy {
         width: 30px;
@@ -273,23 +306,9 @@ h1 {
     animation: heartbeat 500ms cubic-bezier(.75, -3, .25, .4) infinite;
 }
 
-/* Media queries for additional responsiveness */
-/* @media (max-width: 768px) {
-    #ui {
-        padding: 10px;
-    }
-    
-    h1 {
-        margin-bottom: 20px;
-    }
-} */
-
-
-
 #story {
     display: none;
     width: 60%;
-    /* max-width: 600px; */
     margin: 50px auto;
     padding: 20px;
     background: linear-gradient(145deg, #0a0a0a, #1e1e1e);
@@ -341,46 +360,6 @@ h1 {
     margin-top: 50px;
     color: white;
 }
-
-#board {
-    display: none;
-    justify-content: space-between;
-    align-items: center;
-    width: 70%; /* Adjusted for better responsiveness */
-    max-width: 841px;
-    margin: 10px auto;
-    padding: 8px 16px;
-    backdrop-filter: blur(4px);
-    border: 2px solid #4caf50;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 255, 0, 0.4);
-    font-family: "Press Start 2P", cursive;
-    color: white;
-    margin-top: 0;
-    text-align: center;
-    font-size: 14px;
-}
-
-/* Ensure text adjusts properly */
-#board div {
-    flex: 1;
-    text-align: center;
-}
-
-/* Mobile Adjustments */
-@media (max-width: 480px) {
-    #board {
-        flex-direction: column; /* Stack elements on smaller screens */
-        width: 95%;
-        padding: 12px;
-        font-size: 12px;
-    }
-
-    #board div {
-        margin-bottom: 5px; /* Space between stacked items */
-    }
-}
-
 
 #score,
 #lives,
