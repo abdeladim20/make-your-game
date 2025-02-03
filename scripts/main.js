@@ -99,6 +99,7 @@ document.getElementById("start-button").addEventListener("click", () => {
     document.querySelectorAll(".early").forEach(element => {
         element.style.display = "block";
     });
+    document.getElementById("intro-animation").style.opacity = "0.5";
 });
 
 document.getElementById("begin").addEventListener("click", () => {
