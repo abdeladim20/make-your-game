@@ -1,7 +1,7 @@
 let enemies = [];
 let enemyBullets = [];
 let formation = null;
-let formationDirection = 1; // 1 for right, -1 for left
+let formationDirection = 1;
 let mothershipDirection = 1;
 let enemytrans = true
 let MSenemies;
@@ -12,7 +12,6 @@ let enemyshooting;
 function spawnEnemyFormation(rows, cols) {
     let enemyindex = 1;
     const gameContainer = document.getElementById("game-container");
-    // Create the formation container
     formation = document.createElement("div");
     formation.id = "enemy-formation";
     formation.style.position = "absolute";
@@ -24,7 +23,6 @@ function spawnEnemyFormation(rows, cols) {
     formation.style.display = "grid";
     formation.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
 
-    // Add enemies to the formation
     for (let i = 0; i < rows * cols; i++) {
         const enemy = document.createElement("div");
         enemy.className = "enemy";
@@ -51,7 +49,7 @@ function moveFormation() {
         enemiesContainer.querySelectorAll(".enemy:not(.killed)")
     );
 
-    if (remainingEnemies.length === 0) return; // Stop if no enemies remain
+    if (remainingEnemies.length === 0) return;
 
     // Calculate the bounding box for all remaining enemies
     const leftMost = Math.min(...remainingEnemies.map(enemy => enemy.getBoundingClientRect().left));
@@ -82,12 +80,12 @@ function moveFormation() {
     enemiesContainer.style.top = `${top}px`;
 }
 
-// Function to update the lives display
+// update the lives display
 function updateLives() {
     const livesDisplay = document.getElementById("lives");
     const hearts = livesDisplay.querySelectorAll("#heart");
     if (hearts.length > 0) {
-        hearts[hearts.length - 1].remove(); // Remove the last heart
+        hearts[hearts.length - 1].remove();
     }
 }
 
@@ -95,11 +93,10 @@ function updateMSLives() {
     const livesDisplay = document.getElementById("mothershiphp");
     const hearts = livesDisplay.querySelectorAll("#wheart");
     if (hearts.length > 0) {
-        hearts[hearts.length - 1].remove(); // Remove the last heart
+        hearts[hearts.length - 1].remove();
     }
 }
 
-// Function to make an enemy shoot a bullet
 function enemyShootBullet() {
    const enemiesContainers = document.querySelectorAll("#enemy-formation");
    enemiesContainers.forEach((enemiesContainer) => {
@@ -141,7 +138,6 @@ function moveEnemyBullets() {
             bullet.element.getBoundingClientRect().top < playerRect.bottom &&
             bullet.element.getBoundingClientRect().bottom > playerRect.top
         ) {
-            // Remove bullet on collision
             bullet.element.remove();
             enemyBullets.splice(index, 1);
 
@@ -154,7 +150,6 @@ function moveEnemyBullets() {
             }
         }
 
-        // Remove bullet if it goes off-screen
         if (bullet.y > gameContainerRect.height) {
             bullet.element.remove();
             enemyBullets.splice(index, 1);
@@ -164,7 +159,6 @@ function moveEnemyBullets() {
 
 function spawnMotherShip() {
     const gameContainer = document.getElementById("game-container");
-    // Create the formation container
     MotherShip = document.createElement("div");
     MotherShip.id = "mothership";
     MotherShip.style.top = "10px";
@@ -223,8 +217,6 @@ function mothershipSpawnEnemies() {
     // Get the mothership's position relative to the game container
     const mothershipRect = mothership.getBoundingClientRect();
     const gameContainerRect = gameContainer.getBoundingClientRect();
-
-    // Create enemy formation
     const formation = document.createElement("div");
     formation.id = "enemy-formation";
     formation.style.position = "absolute";
@@ -234,15 +226,13 @@ function mothershipSpawnEnemies() {
     formation.style.display = "grid";
     formation.style.gridTemplateColumns = "repeat(3, 1fr)"; // Three enemies per row
 
-    // Position the formation at the mothership's location
     formation.style.left = `${mothershipRect.left - gameContainerRect.left}px`;
     formation.style.top = `${mothershipRect.bottom - gameContainerRect.top}px`;
 
-    // Spawn multiple enemies inside the formation
     for (let i = 0; i < 3; i++) {
         if (enemyindex == 4) {
             enemyindex = 1;
-        } // Adjust number of enemies
+        }
         const enemy = document.createElement("div");
         enemy.className = "enemy";
         enemy.style.width = "40px";
@@ -267,8 +257,6 @@ function moveEnemy() {
         let formationY = parseInt(formation.style.top) || 0;
         formationY += 3;
         formation.style.top = `${formationY}px`;
-
-        // Remove formation if it reaches the bottom
         if (formationY > gameContainer.clientHeight) {
             formation.remove();
         }

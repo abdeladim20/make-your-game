@@ -14,24 +14,18 @@ function checkBulletCollisions() {
     const playerRect = player.getBoundingClientRect();
 
     formations.forEach((enemiesContainer) => {
-        // Iterate over bullets in reverse order to prevent index shifting issues
         for (let i = bullets.length - 1; i >= 0; i--) {
             const bullet = bullets[i];
             const bulletRect = bullet.element.getBoundingClientRect();
-
-            // Check each enemy within the formation
             const enemyElements = enemiesContainer.querySelectorAll(".enemy:not(.killed)");
             enemyElements.forEach((enemy) => {
                 const enemyRect = enemy.getBoundingClientRect();
-
-                // Check if bullet intersects with enemy
                 if (
                     bulletRect.left < enemyRect.right &&
                     bulletRect.right > enemyRect.left &&
                     bulletRect.top < enemyRect.bottom &&
                     bulletRect.bottom > enemyRect.top
                 ) {
-                    // Mark enemy as killed
                     enemy.classList.add("killed");
                     enemy.style.backgroundImage = "url('assets/images/explo1.png')";
 
@@ -40,19 +34,14 @@ function checkBulletCollisions() {
                     }, 200);
                     setTimeout(() => {
                         enemy.style.backgroundImage = "none";
-                    }, 300); // Adjusted timing for proper animation
-
-                    // Remove the bullet safely
+                    }, 300);
                     bullet.element.remove();
-                    bullets.splice(i, 1); // Remove bullet using the correct index
+                    bullets.splice(i, 1);
 
-                    // Update score
                     updateScore(10);
                 }
             });
         }
-
-        // Check for collision between enemies and player
         const enemyElements = enemiesContainer.querySelectorAll(".enemy:not(.killed)");
         enemyElements.forEach((enemy) => {
             const enemyRect = enemy.getBoundingClientRect();
@@ -63,7 +52,6 @@ function checkBulletCollisions() {
                 playerRect.top < enemyRect.bottom &&
                 playerRect.bottom > enemyRect.top
             ) {
-                // End the game if enemy collides with the player
                 endGame();
             }
         });
@@ -110,7 +98,7 @@ function checkBulletsMothership() {
             bulletRect.bottom > shipRec.top
         ) {
             bullet.element.remove();
-            bullets.splice(i, 1); // Remove bullet safely
+            bullets.splice(i, 1);
 
             mothershiplives--;
             takeDamage(mothership);
@@ -167,8 +155,8 @@ function moveEntities() {
 
         // Remove bullet if it moves off-screen
         if (bullet.y > 850) {
-            bullet.element.remove(); // Remove from DOM
-            bullets.splice(index, 1); // Remove from array
+            bullet.element.remove();
+            bullets.splice(index, 1);
         }
     });
 }

@@ -12,8 +12,8 @@ function livesvisual() {
     lives = 3;
     let livesdiv = document.getElementById("lives");
     livesdiv.innerHTML = "";
-    livesdiv.style.width = `${3 * 20}px`; // Adjust based on enemy width
-    livesdiv.style.height = `${1 * 20}px`; // Adjust based on enemy height
+    livesdiv.style.width = `${3 * 20}px`;
+    livesdiv.style.height = `${1 * 20}px`;
     livesdiv.style.display = "grid";
     livesdiv.style.gridTemplateColumns = `repeat(${3}, 1fr)`;
 
@@ -67,8 +67,6 @@ function updateScore(points) {
 function countdownandinit() {
     let current = 3;
     const countdownElement = document.getElementById('countdown');
-
-    // update the countdown
     const interval = setInterval(() => {
         countdownElement.textContent = current;
 
@@ -97,7 +95,7 @@ function startTimer(reset) {
     timer = setInterval(() => {
         let minutes = Math.floor(timeLeft / 60);
         let seconds = timeLeft % 60;
-        seconds = seconds < 10 ? "0" + seconds : seconds; // Format seconds
+        seconds = seconds < 10 ? "0" + seconds : seconds;
 
         counterDisplay.textContent = `${minutes}:${seconds}`;
 
@@ -111,7 +109,6 @@ function startTimer(reset) {
     }, 1000);
 }
 
-// stop the timer manually
 function stopTimer() {
     clearInterval(timer);
 }
