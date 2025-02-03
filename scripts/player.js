@@ -48,7 +48,7 @@ function shootBullet() {
     const bullet = document.createElement("div");
     bullet.className = "bullet";
     bullet.style.position = "absolute";
-    bullet.style.left = `${playerPosition + 22.5}px`;
+    bullet.style.left = `${playerPosition + (player.clientWidth / 2) - bullet.offsetWidth}px`;
     bullet.style.bottom = "70px";
 
     document.getElementById("game-container").appendChild(bullet);
@@ -56,5 +56,5 @@ function shootBullet() {
     bullets.push({ element: bullet, y: 70 });
     setTimeout(() => {
         canShoot = true;
-    }, 300);
+    }, 500);
 }
