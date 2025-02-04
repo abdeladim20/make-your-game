@@ -75,8 +75,10 @@ function countdownandinit() {
             clearInterval(interval);
             if (phase == 1) {
                 initializeGame1();
-            } else {
+            } else if (phase == 2){
                 initializeGame2();
+            } else {
+                initializeGame3();
             }
         } else {
             current--;
@@ -102,7 +104,21 @@ function startTimer(reset) {
         if (timeLeft <= 0) {
             clearInterval(timer);
             counterDisplay.textContent = "0:00";
-            endGame();
+            if (phase != 2) {
+                endGame();
+            } else {
+                phase = 3;
+                game.innerHTML = '<div id="countdown"></div>';
+                game.style.display = "none";
+                document.getElementById("board").style.display = "none";
+                stopEnemyActions();
+                stopGameLoop();
+                playerPosition = 375;
+                document.querySelectorAll(".mid2").forEach(element => {
+                    element.style.display = "block";
+                });
+
+            }
         }
 
         timeLeft--;

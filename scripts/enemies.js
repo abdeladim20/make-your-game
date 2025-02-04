@@ -7,6 +7,7 @@ let enemytrans = true
 let MSenemies;
 let enemyChange;
 let enemyshooting;
+let asteroidSpawning;
 
 
 function spawnEnemyFormation(rows, cols) {
@@ -264,17 +265,25 @@ function moveEnemy() {
 }
 
 function startEnemyActions() {
-    if (phase == 2) {
+    if (phase == 3) {
         MSenemies = setInterval(mothershipSpawnEnemies, 1000);
     }
-    enemyshooting = setInterval(enemyShootBullet, 700);
+    if (phase == 1 || phase == 3) {
+        enemyshooting = setInterval(enemyShootBullet, 700);
+    } else {
+        asteroidSpawning = setInterval(spawnAsteroids, 500);
+    }
 }
 
 function stopEnemyActions() {
-    if (phase == 2) {
+    if (phase == 3) {
         clearInterval(MSenemies);
     }
-    clearInterval(enemyshooting);
+    if (phase == 1 || phase == 3) {
+        clearInterval(enemyshooting);
+    } else {
+        clearInterval(asteroidSpawning);
+    }
 }
 
 function takeDamage(element) {
@@ -301,5 +310,58 @@ function despawnEnemies() {
             }, 300)
         });
         enemiesContainer.remove;
+    });
+}
+
+function spawnAsteroids() {
+    const container = document.getElementById("game-container");
+    if (!container) return;
+
+    const asteroid = document.createElement("div");
+    asteroid.classList.add("asteroid");
+
+    // Get container width to calculate random X position
+    const containerWidth = container.clientWidth;
+    const asteroidSize = 70; // Adjust if necessary
+
+    // Random X position within container bounds
+    const randomX = Math.random() * (containerWidth - asteroidSize);
+
+    // Set asteroid styles
+    asteroid.style.position = "absolute";
+    asteroid.style.width = `${asteroidSize}px`;
+    asteroid.style.height = `${asteroidSize}px`;
+    asteroid.style.backgroundImage = `url('assets/images/asteroid1.gif')`;
+    asteroid.style.backgroundSize = "cover";  // Ensures the image fills the div
+    asteroid.style.backgroundRepeat = "no-repeat";
+    asteroid.style.backgroundPosition = "center";
+    asteroid.style.borderRadius = "100%";
+    asteroid.style.top = "0px";
+    asteroid.style.left = `${randomX}px`;
+
+    // Append to game container
+    container.appendChild(asteroid);
+}
+
+function moveAsteroids() {
+    const asteroids = document.querySelectorAll(".asteroid");
+    const gameContainer = document.getElementById("game-container");
+
+    if (!asteroids.length || !gameContainer) return;
+
+    asteroids.forEach((asteroid) => {
+        let asteroidY = parseInt(asteroid.style.top) || 0;
+        let rotation = parseInt(asteroid.dataset.rotation) || 0;
+
+        asteroidY += 2; // Move down
+        rotation += 3; // Rotate by 5 degrees per frame
+
+        asteroid.style.top = `${asteroidY}px`;
+        asteroid.style.transform = `rotate(${rotation}deg)`;
+        asteroid.dataset.rotation = rotation; // Store rotation in data attribute
+
+        if (asteroidY > gameContainer.clientHeight) {
+            asteroid.remove();
+        }
     });
 }

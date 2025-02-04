@@ -3,7 +3,7 @@ let canShoot = true;
 const end = document.getElementById('endGame');
 end.style.display = "none";
 const game = document.getElementById('game-container');
-const s = document.getElementById('score')
+const s = document.getElementById('score');
 
 function checkBulletCollisions() {
     const formations = document.querySelectorAll("#enemy-formation");
@@ -69,7 +69,7 @@ function checkBulletCollisions() {
                 stopTimer();
                 phase = 2;
                 playerPosition = 375;
-                document.querySelectorAll(".mid").forEach(element => {
+                document.querySelectorAll(".mid1").forEach(element => {
                     element.style.display = "block";
                 });
             }, 700);
@@ -158,5 +158,73 @@ function moveEntities() {
             bullet.element.remove();
             bullets.splice(index, 1);
         }
+    });
+}
+
+function checkAsteroids() {
+    const asteroids = document.querySelectorAll(".asteroid:not(.destroyed)");
+    const player = document.getElementById("player");
+
+    if (!asteroids || !player) return;
+
+    const playerRect = player.getBoundingClientRect();
+
+    asteroids.forEach((asteroid) => {
+        const asteroidRect = asteroid.getBoundingClientRect();
+        for (let i = bullets.length - 1; i >= 0; i--) {
+            const bullet = bullets[i];
+            const bulletRect = bullet.element.getBoundingClientRect();
+                if (
+                    bulletRect.left < asteroidRect.right &&
+                    bulletRect.right > asteroidRect.left &&
+                    bulletRect.top < asteroidRect.bottom &&
+                    bulletRect.bottom > asteroidRect.top
+                ) {
+                    asteroid.style.backgroundImage = "url('assets/images/fr1.gif')";
+                    asteroid.classList.add("destroyed");
+                    setTimeout(() => {
+                        asteroid.style.backgroundImage = "url('assets/images/fr2.gif')";
+                    }, 10);
+                    setTimeout(() => {
+                        asteroid.style.backgroundImage = "url('assets/images/fr3.gif')";
+                    }, 50);
+                    setTimeout(() => {
+                        asteroid.style.backgroundImage = "url('assets/images/fr4.gif')";
+                    }, 90);
+                    setTimeout(() => {
+                        asteroid.style.backgroundImage = "url('assets/images/fr5.gif')";
+                    }, 120);
+                    setTimeout(() => {
+                        asteroid.style.backgroundImage = "url('assets/images/fr6.gif')";
+                    }, 160);
+                    setTimeout(() => {
+                        asteroid.style.backgroundImage = "url('assets/images/fr7.gif')";
+                    }, 200);
+                    setTimeout(() => {
+                        asteroid.style.backgroundImage = "url('assets/images/fr8.gif')";
+                    }, 240);
+                    setTimeout(() => {
+                        asteroid.style.backgroundImage = "url('assets/images/fr9.gif')";
+                    }, 280);
+                    setTimeout(() => {
+                        asteroid.style.backgroundImage = "url('assets/images/fr10.gif')";
+                    }, 320);
+                    setTimeout(() => {
+                        asteroid.style.display = "none";
+                        asteroid.remove();
+                    }, 360);
+                    bullet.element.remove();
+                    bullets.splice(i, 1);
+                    updateScore(5);
+                }
+        }
+            if (
+                playerRect.left < asteroidRect.right &&
+                playerRect.right > asteroidRect.left &&
+                playerRect.top < asteroidRect.bottom &&
+                playerRect.bottom > asteroidRect.top
+            ) {
+                endGame();
+            }
     });
 }

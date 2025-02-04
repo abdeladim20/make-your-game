@@ -1,7 +1,7 @@
 let isPaused = false;
 let gameRunning = false;
 let req;
-let phase = 1;
+let phase = 2;
 
 function stopGameLoop() {
     gameRunning = false;
@@ -21,7 +21,7 @@ function initializeGame1() {
     startTimer(true);
 }
 
-function initializeGame2() {
+function initializeGame3() {
     gameRunning = true;
     isPaused = false;
     game.style.display = "flex";
@@ -29,6 +29,17 @@ function initializeGame2() {
     MSlivesvisual();
     document.getElementById("board").style.display = "flex";
     spawnMotherShip();
+    spawnPlayer();
+    startEnemyActions();
+    startTimer(true);
+    gameLoop();
+}
+function initializeGame2() {
+    gameRunning = true;
+    isPaused = false;
+    game.style.display = "flex";
+    livesvisual();
+    document.getElementById("board").style.display = "flex";
     spawnPlayer();
     startEnemyActions();
     startTimer(true);
@@ -77,16 +88,22 @@ function restart() {
 
 function gameLoop() {
     if (!isPaused && gameRunning) {
+        if (phase == 2) {
+            checkAsteroids();
+            moveAsteroids();
+        }
         moveEntities();
         movePlayer();
-        moveEnemyBullets();
-        checkBulletCollisions();
+        if (phase == 1 || phase == 3){
+            moveEnemyBullets();
+            checkBulletCollisions();
+        }
         updateUI();
-        if (phase == 2) {
+        if (phase == 3) {
             moveEnemy()
             moveMothership();
             checkBulletsMothership();
-        } else {
+        } else if (phase == 1){
             moveFormation();
         }
     }
@@ -110,8 +127,15 @@ document.getElementById("begin").addEventListener("click", () => {
     countdownandinit();
 });
 
-document.getElementById("next").addEventListener("click", () => {
-    document.querySelectorAll(".mid").forEach(element => {
+document.getElementById("next1").addEventListener("click", () => {
+    document.querySelectorAll(".mid1").forEach(element => {
+        element.style.display = "none";
+    });
+    document.getElementById("game-container").style.display = "flex";
+    countdownandinit()
+});
+document.getElementById("next2").addEventListener("click", () => {
+    document.querySelectorAll(".mid2").forEach(element => {
         element.style.display = "none";
     });
     document.getElementById("game-container").style.display = "flex";
