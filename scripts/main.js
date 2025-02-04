@@ -35,7 +35,10 @@ function initializeGame2() {
     gameLoop();
 }
 
-function pause() {
+function pause(i) {
+    if (i) {
+        isPaused = false;
+    }
     const paused = document.getElementById("pause");
     stopEnemyActions();
     stopTimer();
@@ -129,3 +132,10 @@ document.getElementById("again").addEventListener("click", () => {
     document.getElementById("game-container").style.display = "flex";
     restart();
 });
+
+document.addEventListener("visibilitychange", () => {
+    if (document.hidden && gameRunning) {
+        pause(1);
+    }
+});
+
