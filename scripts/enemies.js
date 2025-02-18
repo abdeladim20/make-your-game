@@ -1,36 +1,39 @@
 let enemies = [];
+let enemyBullets = [];
 let formation = null;
 let formationDirection = 1;
+let mothershipDirection = 1;
+let enemytrans = true
+let MSenemies;
+let enemyChange;
+let enemyshooting;
+
 
 function spawnEnemyFormation(rows, cols) {
+    let enemyindex = 1;
     const gameContainer = document.getElementById("game-container");
-    const cords = gameContainer.getBoundingClientRect();
     formation = document.createElement("div");
     formation.id = "enemy-formation";
-    gameContainer.appendChild(formation);
-    formation.style.top = `${cords.top + 20}px`;
-    formation.style.left = `${Math.ceil(cords.left)}px`;
-    formation.style.width = `${cols * 60}px`;
-    formation.style.height = `${rows * 60}px`;
-    formation.style.gridTemplateColumns = `repeat(${cols}, 50px)`;
-    formation.style.gridTemplateRows = `repeat(${rows}, 50px)`;
-    formation.style.gap = "10px";
+    formation.style.position = "absolute";
+    formation.style.margin = "0";
+    formation.style.top = "5px";
+    formation.style.left = "0px";
+    formation.style.width = `${cols * 50}px`;
+    formation.style.height = `${rows * 50}px`;
+    formation.style.display = "grid";
+    formation.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
 
-    // Add enemies to the formation
-    for (let row = 1; row <= rows; row++) {
-        for (let col = 1; col <= cols; col++) {
-            const enemy = document.createElement("div");
-            enemy.className = "enemy";
-            enemy.dataset.index = `${row}-${col}`;
-            enemy.style.gridArea = `${row} / ${col}`;
-            enemy.style.width = "40px";
-            enemy.style.height = "40px";
-            enemy.style.backgroundImage = "url('assets/images/enemy.png')";
-            enemy.style.backgroundSize = "cover";
-            enemy.style.backgroundPosition = "center";
-            formation.appendChild(enemy);
-        }
+    for (let i = 0; i < rows * cols; i++) {
+        const enemy = document.createElement("div");
+        enemy.className = "enemy";
+        enemy.dataset.index = i;
+        enemyindex = Math.ceil((i + 1) / cols);
+        enemy.style.backgroundImage = `url('assets/images/enemy${enemyindex}.gif')`;
+        enemy.style.backgroundSize = "cover";
+        enemy.style.backgroundPosition = "center";
+        formation.appendChild(enemy);
     }
+    gameContainer.appendChild(formation);
 }
 
 let speedEnemy = 5;
@@ -48,33 +51,31 @@ function moveFormation() {
     const gameRect = gameContainer.getBoundingClientRect();
     // const remainingEnemies = Array.from(enemiesContainer.querySelectorAll(".enemy:not(.killed)"));
 
-    // if (remainingEnemies.length === 0) return; // Stop if no enemies remain
+    if (remainingEnemies.length === 0) return;
 
-    // // Get dynamic leftmost and rightmost enemy positions
-    // const leftMost = Math.min(...remainingEnemies.map(enemy => enemy.getBoundingClientRect().left));
-    // const rightMost = Math.max(...remainingEnemies.map(enemy => enemy.getBoundingClientRect().right));
+    // Calculate the bounding box for all remaining enemies
+    const leftMost = Math.min(...remainingEnemies.map(enemy => enemy.getBoundingClientRect().left));
+    const rightMost = Math.max(...remainingEnemies.map(enemy => enemy.getBoundingClientRect().right));
 
-    // // let top = parseFloat(getComputedStyle(enemiesContainer).top) || 0;
-    // // let left = parseFloat(getComputedStyle(enemiesContainer).left) || 0;
-    // const enemiesContainerCords = enemiesCntainer.getBoundingClientRect();
+    let top = parseFloat(getComputedStyle(enemiesContainer).top) || 0;
+    let left = parseFloat(getComputedStyle(enemiesContainer).left) || 0;
 
-    // const step = 5; // Movement step size
-
-    // if (formationDirection === 1) {
-    //     if (rightMost + step < gameRect.right) {
-    //         enemiesContainerCords.left += step;
-    //     } else {
-    //         formationDirection *= -1;
-    //         top += 20; // Move down when hitting the right border
-    //     }
-    // } else {
-    //     if (leftMost - step > gameRect.left) {
-    //         left -= step;
-    //     } else {
-    //         formationDirection *= -1;   
-    //         top += 20; // Move down when hitting the left border
-    //     }
-    // }
+    const step = 2;
+    if (formationDirection === 1) {
+        if (rightMost + step < gameRect.right) {
+            left += step;
+        } else {
+            formationDirection = -1;
+            top += 20;
+        }
+    } else {
+        if (leftMost - step > gameRect.left) {
+            left -= step;
+        } else {
+            formationDirection = 1;
+            top += 20;
+        }
+    }
 
     // // Update position
     // enemiesContainer.style.top = `${top}px`;
@@ -93,45 +94,47 @@ function moveFormation() {
 }
 
 
-let enemyBullets = [];
-
 // update the lives display
 function updateLives() {
     const livesDisplay = document.getElementById("lives");
-    livesDisplay.textContent = `Lives: ${lives}`;
+    const hearts = livesDisplay.querySelectorAll("#heart");
+    if (hearts.length > 0) {
+        hearts[hearts.length - 1].remove();
+    }
 }
 
-// make an enemy shoot a bullet
+function updateMSLives() {
+    const livesDisplay = document.getElementById("mothershiphp");
+    const hearts = livesDisplay.querySelectorAll("#wheart");
+    if (hearts.length > 0) {
+        hearts[hearts.length - 1].remove();
+    }
+}
+
 function enemyShootBullet() {
-
-    const enemiesContainer = document.getElementById("enemy-formation")
-    if (enemiesContainer) {
-
-        const enemyElements = enemiesContainer.querySelectorAll(".enemy:not(.killed)");
-
-        if (enemyElements.length === 0) return;
-
+   const enemiesContainers = document.querySelectorAll("#enemy-formation");
+   enemiesContainers.forEach((enemiesContainer) => {
+    const enemyElements = enemiesContainer.querySelectorAll(".enemy:not(.killed)");
+    
+    if (enemyElements.length === 0) return;
         const randomEnemyIndex = Math.floor(Math.random() * enemyElements.length);
         const randomEnemy = enemyElements[randomEnemyIndex];
 
-        // Create a bullet
         const bullet = document.createElement("div");
         bullet.className = "enemy-bullet";
         bullet.style.position = "absolute";
         bullet.style.width = "5px";
         bullet.style.height = "10px";
-        bullet.style.backgroundColor = "red";
 
-        // Position the bullet below the enemy
         const enemyRect = randomEnemy.getBoundingClientRect();
         const gameContainerRect = document.getElementById("game-container").getBoundingClientRect();
         bullet.style.left = `${enemyRect.left + enemyRect.width / 2 - gameContainerRect.left}px`;
         bullet.style.top = `${enemyRect.bottom - gameContainerRect.top}px`;
+
         document.getElementById("game-container").appendChild(bullet);
 
-        // Add the bullet to the enemyBullets array
-        enemyBullets.push({ element: bullet, y: enemyRect.bottom - gameContainerRect.top });
-    }
+    enemyBullets.push({ element: bullet, y: enemyRect.bottom - gameContainerRect.top });
+   })
 }
 
 function moveEnemyBullets() {
@@ -140,7 +143,7 @@ function moveEnemyBullets() {
     const gameContainerRect = document.getElementById("game-container").getBoundingClientRect();
 
     enemyBullets.forEach((bullet, index) => {
-        bullet.y += 5;
+        bullet.y += 7;
         bullet.element.style.top = `${bullet.y}px`;
 
         if (
@@ -153,13 +156,13 @@ function moveEnemyBullets() {
             enemyBullets.splice(index, 1);
             lives--;
             updateLives();
+            takeDamage(player);
 
             if (lives <= 0) {
                 endGame();
             }
         }
 
-        // Remove bullet if it goes off-screen
         if (bullet.y > gameContainerRect.height) {
             bullet.element.remove();
             enemyBullets.splice(index, 1);
@@ -167,4 +170,149 @@ function moveEnemyBullets() {
     });
 }
 
-let shoot = setInterval(enemyShootBullet, 400);
+function spawnMotherShip() {
+    const gameContainer = document.getElementById("game-container");
+    MotherShip = document.createElement("div");
+    MotherShip.id = "mothership";
+    MotherShip.style.top = "10px";
+    MotherShip.style.left = "50px";
+    MotherShip.style.position = "absolute";
+    MotherShip.style.height = "80px";
+    MotherShip.style.width = "210px";
+    MotherShip.style.margin = "0";
+    MotherShip.style.backgroundImage = "url('assets/images/mothership.png')"
+    MotherShip.style.backgroundSize = "cover";
+    MotherShip.style.backgroundPosition = "center";
+
+    gameContainer.appendChild(MotherShip)
+}
+
+function moveMothership() {
+    const mothership = document.getElementById("mothership");
+    const gameContainer = document.getElementById("game-container");
+
+    if (!mothership || !gameContainer) return;
+
+    const gameRect = gameContainer.getBoundingClientRect();
+
+    const leftMost = Math.min(mothership.getBoundingClientRect().left);
+    const rightMost = Math.max(mothership.getBoundingClientRect().right);
+
+    let left = parseFloat(getComputedStyle(mothership).left) || 0;
+
+    const step = 2;
+    if (mothershipDirection === 1) {
+        if (rightMost + step < gameRect.right) {
+            left += step;
+        } else {
+            mothershipDirection = -1;
+        }
+    } else {
+        if (leftMost - step > gameRect.left) {
+            left -= step;
+        } else {
+            mothershipDirection = 1;
+        }
+    }
+
+    mothership.style.left = `${left}px`;
+    mothership.style.top = `${top}px`;
+}
+
+
+function mothershipSpawnEnemies() {
+    let enemyindex = 1;
+    const mothership = document.getElementById("mothership");
+    const gameContainer = document.getElementById("game-container");
+
+    if (!mothership || !gameContainer) return;
+
+    // Get the mothership's position relative to the game container
+    const mothershipRect = mothership.getBoundingClientRect();
+    const gameContainerRect = gameContainer.getBoundingClientRect();
+    const formation = document.createElement("div");
+    formation.id = "enemy-formation";
+    formation.style.position = "absolute";
+    formation.style.margin = "0";
+    formation.style.width = `150px`;
+    formation.style.height = `50px`;
+    formation.style.display = "grid";
+    formation.style.gridTemplateColumns = "repeat(3, 1fr)"; // Three enemies per row
+
+    formation.style.left = `${mothershipRect.left - gameContainerRect.left}px`;
+    formation.style.top = `${mothershipRect.bottom - gameContainerRect.top}px`;
+
+    for (let i = 0; i < 3; i++) {
+        if (enemyindex == 4) {
+            enemyindex = 1;
+        }
+        const enemy = document.createElement("div");
+        enemy.className = "enemy";
+        enemy.style.width = "40px";
+        enemy.style.height = "40px";
+        enemy.style.backgroundImage = `url('assets/images/enemy${enemyindex}.gif')`;
+        enemy.style.backgroundSize = "cover";
+        enemy.style.backgroundPosition = "center";
+        formation.appendChild(enemy);
+        enemyindex++;
+    }
+
+    gameContainer.appendChild(formation);
+}
+
+function moveEnemy() {
+    const formations = document.querySelectorAll("#enemy-formation");
+    const gameContainer = document.getElementById("game-container");
+
+    if (!formations.length || !gameContainer) return;
+
+    formations.forEach((formation) => {
+        let formationY = parseInt(formation.style.top) || 0;
+        formationY += 3;
+        formation.style.top = `${formationY}px`;
+        if (formationY > gameContainer.clientHeight) {
+            formation.remove();
+        }
+    });
+}
+
+function startEnemyActions() {
+    if (phase == 2) {
+        MSenemies = setInterval(mothershipSpawnEnemies, 1000);
+    }
+    enemyshooting = setInterval(enemyShootBullet, 700);
+}
+
+function stopEnemyActions() {
+    if (phase == 2) {
+        clearInterval(MSenemies);
+    }
+    clearInterval(enemyshooting);
+}
+
+function takeDamage(element) {
+    element.style.filter= `invert(50%) sepia(100%) saturate(5000%) hue-rotate(0deg)`;
+    setTimeout(()=>{
+        element.style.filter= ``;
+    }, 100)
+}
+
+function despawnEnemies() {
+    const formations = document.querySelectorAll("#enemy-formation");
+    formations.forEach((enemiesContainer) => {
+    const enemyElements = enemiesContainer.querySelectorAll(".enemy:not(.killed)");
+    enemyElements.forEach((enemy) => {
+        const enemyRect = enemy.getBoundingClientRect();
+            enemy.classList.add("killed");
+            enemy.style.backgroundImage = "url('assets/images/explo1.png')";
+
+            setTimeout(() => {
+                enemy.style.backgroundImage = "url('assets/images/explo2.png')";
+            }, 300)
+            setTimeout(() => {
+                enemy.style.backgroundImage = "none";
+            }, 300)
+        });
+        enemiesContainer.remove;
+    });
+}

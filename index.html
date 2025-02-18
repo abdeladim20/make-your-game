@@ -1,32 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Space Invaders</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Pixelify+Sans:wght@400..700&family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/style.css">
 
 </head>
+
 <body>
+
     <body>
-        <div id="endGame">Game End</div>
-        <div id="game-container">
-            <div id="score">Score: 0</div>
-            <div id="lives">Lives: 3</div>
-            <div id="ui">
-                <button id="start-button">Start Game</button>
-            </div>
-        </div>
         <div id="pause">
             <h2>Game Paused</h2>
-            <button onclick="restart()">Restart</button>
-            <button onclick="resume()">Resume</button>
+            <button class="btn" onclick="resume()">Continue</button>
+            <button class="btn" onclick="restart()">Restart</button>
         </div>
-    <script src="scripts/main.js" defer></script>
-    <script src="scripts/player.js" defer></script>
-    <script src="scripts/enemies.js" defer></script>
-    <script src="scripts/collisions.js" defer></script>
-    <script src="scripts/input.js" defer></script>
-    <script src="scripts/ui.js" defer></script>
-</body>
+        <div id="endGame">Game Over!
+            <div id="scoreres"></div>
+            <button id="retry" class="btn">Play Again!</button>
+        </div>
+
+        <div id="game-container">
+            <div id="countdown"></div>
+        </div>
+        <div id="mothershiphp"></div>
+        <div id="board">
+            <div id="score">Score: 0</div>
+            <div id="lives"></div>
+            <div id="counter">1:00</div>
+        </div>
+        <div id="ui">
+            <h1>SPACE INVADERS</h1>
+            <button id="start-button">Start Game</button>
+        </div>
+        <div id="story" class="early">
+            <h1>SPACE INVADERS</h1>
+            <p>You are the last pilot, a courageous volunteer tasked with one impossible mission: hold the line.
+                Armed with nothing but your skill and the X-42,
+                you must face waves of enemy fleets,
+                destroy the mothership, and drive back the invaders before Earth falls.
+
+                The survival of humanity rests on you. Will you be Earth's hero—or its final memory?</p>
+            <button id="begin" class="btn">Begin Mission!</button>
+        </div>
+        <div id="story" class="mid">
+            <h1>Victory… For Now</h1>
+            <p>
+                You've crushed the enemy wave, proving your skill and resilience.
+                But this battle was only a prelude to the real challenge ahead.
+                The mothership looms in the distance, a fortress of steel and fire,
+                guarding the final key to Earth's survival.
+
+                Brace yourself, pilot. The true fight begins now.
+                Good luck—you'll need it.
+            </p>
+
+            <button id="next" class="btn">Head to the Mothership!</button>
+        </div>
+        <div id="story" class="late">
+            <h1>Mission Accomplished</h1>
+            <p>
+                The battle is over. The mothership erupts into a brilliant fireball,
+                its wreckage scattering into the void. The invasion is over—Earth is safe.
+
+                You have defied the odds, a lone pilot against an armada.
+                The Earth will remember this day.
+
+                As you drift among the stars, the silence is deafening.
+                But the war has taught you one thing: peace is never permanent.
+
+                For now, you are a hero. But when the next threat comes… will you be ready?
+            </p>
+            <button id="again" class="btn">Play again!</button>
+        </div>
+        <div id="intro-animation"></div>
+    </body>
+
 </html>
